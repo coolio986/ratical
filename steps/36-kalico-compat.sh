@@ -1,0 +1,131 @@
+# 36 — Kalico + Trixie compatibility patches for Ratical
+# (sourced by install.sh) — Ratical targets its own klipper fork + Bookworm/py3.11. On Kalico
+# + Debian 13 (py3.13) several things break. These idempotent patches fix them and survive
+# configurator redeploys (this step re-applies after `git pull`).
+
+RATICAL_DIR="${RK_CONFIG}/Ratical"
+
+# --- 1) check-version.py: Kalico moved klippy to a package with relative imports ----------
+CV="${RK_CONFIGURATOR_APP}/scripts/check-version.py"
+if [[ -f "${CV}" ]]; then
+  if grep -q "from klippy import reactor" "${CV}"; then
+    ok "check-version.py already Kalico-compatible"
+  else
+    report "Patching check-version.py for Kalico package imports"
+    as_user "cp '${CV}' '${CV}.pre-kalico'"
+    as_user "sed -i 's|sys.path.append(os.path.join(KLIPPER_DIR, \"klippy\"))|sys.path.append(KLIPPER_DIR)|' '${CV}'"
+    as_user "sed -i 's|^import reactor\$|from klippy import reactor|; s|^import serialhdl\$|from klippy import serialhdl|; s|^import clocksync\$|from klippy import clocksync|; s|^import mcu\$|from klippy import mcu|' '${CV}'"
+    ok "check-version.py patched"
+  fi
+fi
+
+# --- 2) ratical_hybrid_corexy kinematics: Kalico API — supports_dual_carriage + clear_homing_state
+KIN="${RATICAL_DIR}/klippy/kinematics/ratical_hybrid_corexy.py"
+if [[ -f "${KIN}" ]]; then
+  # 2a) supports_dual_carriage attribute (checked by Kalico printer.py for IDEX)
+  if ! grep -q "supports_dual_carriage" "${KIN}"; then
+    report "Adding supports_dual_carriage to ratical_hybrid_corexy (Kalico kinematics API)"
+    as_user "python3 -c \"p='${KIN}'; s=open(p).read(); s=s.replace('self.printer = config.get_printer()','self.printer = config.get_printer()\n        self.supports_dual_carriage = True  # Kalico kinematics API (IDEX)',1); open(p,'w').write(s)\""
+    grep -q "supports_dual_carriage" "${KIN}" && ok "supports_dual_carriage added" || warn "patch failed"
+  else ok "supports_dual_carriage present"; fi
+  # 2b) clear_homing_state method (Kalico force_move.py SET_KINEMATIC_POSITION calls it)
+  if ! grep -q "def clear_homing_state" "${KIN}"; then
+    report "Adding clear_homing_state to ratical_hybrid_corexy (Kalico kinematics API)"
+    as_user "python3 -c \"p='${KIN}'; s=open(p).read(); m='    def clear_homing_state(self, axes):\n        for i, _ in enumerate(self.limits):\n            if i in axes:\n                self.limits[i] = (1.0, -1.0)\n\n'; s=s.replace('    def home_axis(', m+'    def home_axis(', 1); open(p,'w').write(s)\""
+    grep -q "def clear_homing_state" "${KIN}" && ok "clear_homing_state added" || warn "patch failed"
+  else ok "clear_homing_state present"; fi
+fi
+
+# --- 3) beacon.cfg: log_points is a Ratical bed_mesh patch absent in Kalico -----------------
+BC="${RATICAL_DIR}/z-probe/beacon.cfg"
+if [[ -f "${BC}" ]] && grep -qE "^log_points:" "${BC}"; then
+  report "Removing log_points from beacon.cfg (Kalico bed_mesh lacks it)"
+  as_user "sed -i 's/^log_points:/#log_points:  # removed: Kalico stock bed_mesh/' '${BC}'"
+  ok "log_points removed"
+fi
+
+# --- 4) V-Core 4 printer cfgs: split_delta_z 0.001 < Kalico minval 0.01 -------------------
+for pc in "${RATICAL_DIR}"/printers/v-core-4*/v-core-4*.cfg; do
+  [[ -f "${pc}" ]] || continue
+  if grep -qE "^split_delta_z: 0.001" "${pc}"; then
+    as_user "sed -i 's/^split_delta_z: 0.001/split_delta_z: 0.01/' '${pc}'"
+    ok "split_delta_z -> 0.01 in $(basename "$(dirname "${pc}")")"
+  fi
+done
+
+# --- 5) pygam: klippy requirements pin 0.9.1 needs py<3.13; Trixie is py3.13 --------------
+if ! "${RK_KLIPPY_ENV}/bin/python" -c "import pygam" 2>/dev/null; then
+  report "Installing Python 3.13-compatible pygam into klippy-env"
+  as_user "'${RK_KLIPPY_ENV}/bin/pip' install -q 'pygam>=0.10.1'" || warn "pygam install failed"
+fi
+"${RK_KLIPPY_ENV}/bin/python" -c "import pygam" 2>/dev/null && ok "pygam available in klippy-env" || warn "pygam missing"
+
+# --- 6) beacon_mesh.py: Kalico ZMesh(params, name) — no reactor arg --------------------
+# Stock Ratical/Klipper ZMesh.__init__(params, name, reactor); Kalico dropped reactor.
+# Without this, BEACON_RATICAL_CALIBRATE / BEACON_CREATE_SCAN_COMPENSATION_MESH dies with:
+#   TypeError: ZMesh.__init__() takes 3 positional arguments but 4 were given
+BM="${RATICAL_DIR}/klippy/beacon_mesh.py"
+if [[ -f "${BM}" ]] && grep -qE 'BedMesh\.ZMesh\([^)]*self\.reactor\)' "${BM}"; then
+  report "Patching beacon_mesh.py ZMesh calls for Kalico (drop reactor arg)"
+  as_user "python3 -c \"
+from pathlib import Path
+p = Path('${BM}')
+s = p.read_text()
+s = s.replace(
+    'BedMesh.ZMesh(profiles[profile][\\\"mesh_params\\\"], profile, self.reactor)',
+    'BedMesh.ZMesh(profiles[profile][\\\"mesh_params\\\"], profile)  # Kalico: no reactor arg')
+s = s.replace(
+    'BedMesh.ZMesh(params, profile_name, self.reactor)',
+    'BedMesh.ZMesh(params, profile_name)  # Kalico: no reactor arg')
+p.write_text(s)
+\""
+  if grep -qE 'BedMesh\.ZMesh\([^)]*self\.reactor\)' "${BM}"; then
+    warn "beacon_mesh ZMesh patch incomplete"
+  else
+    ok "beacon_mesh ZMesh calls Kalico-compatible"
+  fi
+elif [[ -f "${BM}" ]]; then
+  ok "beacon_mesh ZMesh already Kalico-compatible"
+fi
+
+# --- 7) Belt-tension graphs: run graph_accelerometer.py via klippy-env -------------------
+# Scripts invoke graph_accelerometer.py by path; its shebang is system python3, which on
+# Kalico fails with ModuleNotFoundError: cffi (chelper). Always use KLIPPER_ENV python.
+for _bt in \
+  "${RATICAL_DIR}/scripts/idex-generate-belt-tension-graph.sh" \
+  "${RATICAL_DIR}/scripts/generate-belt-tension-graph.sh"
+do
+  [[ -f "${_bt}" ]] || continue
+  if grep -qE '\$\{KLIPPER_ENV\}"/bin/python.*graph_accelerometer' "${_bt}" \
+    || grep -qE "\$\{KLIPPER_ENV\}/bin/python.*graph_accelerometer" "${_bt}"; then
+    ok "belt graph uses klippy-env: $(basename "${_bt}")"
+  elif grep -q 'graph_accelerometer.py' "${_bt}"; then
+    report "Patching $(basename "${_bt}") to use KLIPPER_ENV python"
+    as_user "sed -i 's|\"\${KLIPPER_DIR}\"/scripts/graph_accelerometer.py|\"\${KLIPPER_ENV}\"/bin/python \"\${KLIPPER_DIR}\"/scripts/graph_accelerometer.py|g' '${_bt}'"
+    ok "patched $(basename "${_bt}")"
+  fi
+done
+
+# --- 8) Configurator UI sanity (SciChart must be gone; VAOC uses MJPEG) -------------------
+# Analysis/VAOC now ship as MIT uPlot + MJPEG-first camera (`/webcam/stream`). Do NOT
+# patch SciChart fonts here — SciChart is removed from the OSS build. The mono-repo commits
+# the prebuilt build/ directly, so a fresh install already ships the uPlot/VAOC build.
+# Fail loudly if a stale SciChart build is ever detected.
+BUILD_STATIC="${RK_CONFIGURATOR_APP}/build"
+if [[ -d "${BUILD_STATIC}" ]]; then
+  if find "${BUILD_STATIC}" -name 'scichart2d.wasm' -print -quit | grep -q . \
+    || grep -Rql --include='*.js' 'SciChartSurface\|UseCommunityLicense\|scichart-react' "${BUILD_STATIC}" 2>/dev/null; then
+    warn "Stale SciChart assets detected under ${BUILD_STATIC}"
+    warn "Rebuild the configurator locally and re-commit configurator/src/build to the mono-repo"
+    warn "then re-run: ./install.sh 20 36"
+  else
+    ok "configurator build has no SciChart (uPlot/VAOC path)"
+  fi
+fi
+
+# --- 9) Clear klipper bytecode cache so patched extensions/kinematics reload -------------
+# Python does NOT reliably invalidate __pycache__ for symlinked, in-place-edited modules,
+# so a stale .pyc can mask patches above (e.g. missing clear_homing_state at runtime).
+report "Clearing klipper bytecode cache (forces recompile of patched modules)"
+find "${RK_KLIPPER_DIR}/klippy" -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
+ok "bytecode cache cleared — restart klipper to load patched modules"

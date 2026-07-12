@@ -1,0 +1,8 @@
+node_modules/
+.next/
+*.log
+__pycache__/
+*.pyc
+configuration/boards/*/manual.pdf
+.env.local
+.env.*.local

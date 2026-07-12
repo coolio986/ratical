@@ -1,0 +1,40 @@
+Ratical
+=======
+
+Ratical is a standalone, self-hosted Klipper/Kalico printer configuration stack
+(configurator web app + configuration macros/extensions + theme + installer).
+
+License: GNU General Public License v3.0 or later (GPL-3.0-or-later).
+See the LICENSE file for the full license text.
+
+--------------------------------------------------------------------------------
+Attribution / Derivative Work Notice (required by GPL-3.0)
+--------------------------------------------------------------------------------
+
+Ratical is a derivative work of RatOS. Substantial portions of this project —
+the configurator application, Klipper/Kalico extensions and kinematics, printer/
+board/hardware definitions, macros, and installer logic — originate from the
+RatOS project and are used and redistributed here under the terms of GPL-3.0.
+
+Upstream projects and their copyright holders retain their copyrights:
+
+  - RatOS                — https://github.com/Rat-OS/RatOS
+  - RatOS-configurator   — https://github.com/Rat-OS/RatOS-configurator
+  - RatOS-configuration  — https://github.com/Rat-OS/RatOS-configuration
+  - RatOS-theme          — https://github.com/Rat-OS/RatOS-theme
+    Copyright (c) the RatOS authors and contributors.
+
+Hardware definitions, build-guide links, and product names such as "Rat Rig",
+"V-Core", "V-Minion", and the "VAOC" toolhead-alignment system refer to physical
+products manufactured by Rat Rig (https://ratrig.com). These names are retained
+solely as factual hardware references and manufacturer attribution. Ratical is
+an independent project and is NOT affiliated with, endorsed by, or sponsored by
+Rat Rig or the RatOS project.
+
+This project renames the runtime namespace (RatOS -> Ratical) and removes remote
+update/branding dependencies on the upstream repositories; it does not remove or
+disclaim the copyright or authorship of the upstream work.
+
+Third-party components retain their own licenses (Kalico, Moonraker, Mainsail,
+Beacon, Crowsnest, Linear Movement Analysis, uPlot, and others). See their
+respective repositories for details.

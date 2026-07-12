@@ -1,0 +1,25 @@
+# next.js dev artifacts (the production /src/build/ IS committed for on-Pi deploy)
+/src/.next/
+/src/out/
+
+# Bin build outputs (ratical.mjs, pino workers, yoga.wasm) ARE committed for on-Pi deploy
+
+# misc
+.DS_Store
+*.pem
+.DS_Store
+*:Zone.Identifier
+
+# logs
+*.log
+
+# SciChart data
+src/public/scichart*
+src/public/tfjs*
+
+# Default printer config directory for development
+devbox.d/printer-config/
+devbox.d/klipper/
+
+# artifacts for local deployment tests
+/artifacts

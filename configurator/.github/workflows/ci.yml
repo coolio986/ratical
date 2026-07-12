@@ -1,0 +1,137 @@
+name: "CI"
+env:
+  RATICAL_CONFIGURATION_PATH: ${{ github.workspace }}/ratical-configurator/configuration
+  KLIPPER_CONFIG_PATH: ${{ github.workspace }}/config
+  RATICAL_SCRIPT_DIR: ${{ github.workspace }}/ratical-configurator/src/scripts
+  KLIPPER_DIR: ${{ github.workspace }}/klipper
+  KLIPPER_ENV: ${{ github.workspace }}/klippy-env
+  MOONRAKER_DIR: ${{ github.workspace }}/moonraker
+  LOG_FILE: ${{ github.workspace }}/ratical-configurator.log
+  RATICAL_DATA_DIR: ${{ github.workspace }}/ratical-data
+on:
+  push:
+    branches:
+      - "development"
+      - "v2.1.x"
+      - "monorepo"
+      - "**/devpub/**"
+  pull_request:
+    branches:
+      - "**"
+
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  checkout_dependencies:
+    name: Lint, Typecheck and Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          path: "ratical-configurator"
+          fetch-tags: true
+
+      - name: Write environment variables to .env.local
+        run: |
+          echo "RATICAL_CONFIGURATION_PATH=${{ env.RATICAL_CONFIGURATION_PATH }}" > ratical-configurator/src/.env.local
+          echo "KLIPPER_CONFIG_PATH=${{ env.KLIPPER_CONFIG_PATH }}" >> ratical-configurator/src/.env.local
+          echo "RATICAL_SCRIPT_DIR=${{ env.RATICAL_SCRIPT_DIR }}" >> ratical-configurator/src/.env.local
+          echo "KLIPPER_DIR=${{ env.KLIPPER_DIR }}" >> ratical-configurator/src/.env.local
+          echo "KLIPPER_ENV=${{ env.KLIPPER_ENV }}" >> ratical-configurator/src/.env.local
+          echo "MOONRAKER_DIR=${{ env.MOONRAKER_DIR }}" >> ratical-configurator/src/.env.local
+          echo "LOG_FILE=${{ env.LOG_FILE }}" >> ratical-configurator/src/.env.local
+          echo "RATICAL_DATA_DIR=${{ env.RATICAL_DATA_DIR }}" >> ratical-configurator/src/.env.local
+
+      - name: Extract target branch name
+        shell: bash
+        run: echo "branch=${GITHUB_REF#refs/heads/}" >> $GITHUB_OUTPUT
+        id: extract_branch
+
+      - name: Install Node
+        uses: actions/setup-node@v4.0.1
+        with:
+          # Version Spec of the version to use. Examples: 12.x, 10.15.1, >=10.15.0.
+          node-version: 20.x # Tests currently require node 20
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          run_install: false
+          version: 9.1
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Dependencies
+        working-directory: ratical-configurator/src
+        run: pnpm install --frozen-lockfile
+
+      - name: Checkout Klipper
+        uses: actions/checkout@v4
+        with:
+          repository: klipper3d/klipper
+          path: "klipper"
+
+      - name: Checkout Moonraker
+        uses: actions/checkout@v4
+        with:
+          repository: Arksine/moonraker
+          path: "moonraker"
+
+      - name: Test Ratical Logging
+        working-directory: ratical-configurator
+        run: |
+          ./scripts/test-ratical-logging.sh
+
+      - name: Bash Syntax Check
+        working-directory: ratical-configurator
+        run: |
+          # Use the standalone bash validation script for consistent validation
+          # across CI and local development environments
+          ./scripts/validate-bash-syntax.sh --quiet
+
+      - name: Lint
+        working-directory: ratical-configurator/src
+        run: pnpm run lint:ci
+
+      - name: Typecheck
+        uses: fersilva16/ts-report-action@1.1.0
+        if: success() || failure() # run this step even if previous step failed
+        with:
+          project: ratical-configurator/src/tsconfig.json
+
+      - name: Run test suite
+        working-directory: ratical-configurator/src
+        if: success() || failure() # run this step even if previous step failed
+        run: pnpm run test:ci --outputFile=./report.xml
+
+      - name: Upload reports
+        uses: actions/upload-artifact@v4 # upload test results
+        if: success() || failure() # run this step even if previous step failed
+        with:
+          name: test-results
+          path: |
+            ratical-configurator/src/report.xml
+            ratical-configurator/src/eslint_report.json
+
+      - name: Report status
+        if: ${{ failure() }}
+        run: exit 1

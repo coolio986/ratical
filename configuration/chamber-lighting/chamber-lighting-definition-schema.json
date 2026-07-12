@@ -1,0 +1,7 @@
+{
+	"$schema": "https://json-schema.org/draft-07/schema",
+	"$id": "https://github.com/coolio986/ratical/chamber-lighting-definition.schema.json",
+	"title": "Chamber Lighting Definition",
+	"description": "A Ratical-supported chamber lighting component",
+	"$ref": "../hardware-definition-schema.json"
+}

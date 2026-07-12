@@ -1,0 +1,8 @@
+{
+	"$schema": "../toolhead-alignment-system-definition-schema.json",
+	"type": "toolhead-alignment-system",
+	"title": "Ratical VAOC",
+	"description": "Ratical VAOC toolhead alignment system",
+	"manufacturer": "Ratical",
+	"template": "ratical-vaoc.ts"
+}

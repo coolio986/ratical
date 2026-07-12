@@ -1,0 +1,36 @@
+name: "Test Report"
+on:
+  workflow_run:
+    workflows: ["CI"] # runs after CI workflow
+    types:
+      - completed
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        id: download-artifact
+        uses: dawidd6/action-download-artifact@v3
+        with:
+          run_id: ${{ github.event.workflow_run.id }}
+          name: test-results
+          if_no_artifact_found: fail
+
+      - uses: ataylorme/eslint-annotate-action@v2
+
+      - uses: dorny/test-reporter@v1
+        with:
+          artifact: test-results # artifact name
+          name: Test Report # Name of the check run which will be created
+          path: "*.xml" # Path to test results (inside artifact .zip)
+          reporter: jest-junit # Format of test results

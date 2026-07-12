@@ -1,0 +1,25 @@
+#### Ratical-configurator - Systemd service file
+####
+#### Written by Mikkel Schmidt <mikkel.schmidt@gmail.com>
+#### Copyright 2022
+#### https://github.com/coolio986/ratical
+
+[Unit]
+Description=Ratical Configurator service
+Requires=network-online.target
+After=network-online.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=simple
+User=__RATICAL_USERNAME__
+SupplementaryGroups=ratical-configurator
+RemainAfterExit=yes
+WorkingDirectory=__SRC_DIR__
+ExecStart=pnpm start
+Restart=always
+RestartSec=10
+StandardOutput=append:/var/log/ratical-configurator.log
+StandardError=append:/var/log/ratical-configurator.log
