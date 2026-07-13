@@ -60,6 +60,16 @@ if ! "${RK_KLIPPY_ENV}/bin/python" -c "import pygam" 2>/dev/null; then
 fi
 "${RK_KLIPPY_ENV}/bin/python" -c "import pygam" 2>/dev/null && ok "pygam available in klippy-env" || warn "pygam missing"
 
+# --- 5b) cffi: Kalico klippy chelper imports cffi; a KIAUH klippy-env may lack it --------
+# calibrate_shaper.py / graph_accelerometer.py import the klippy package (chelper) even when
+# run via klippy-env python, so without cffi the shaper/belt-tension graphs fail with
+# "ModuleNotFoundError: No module named 'cffi'".
+if ! "${RK_KLIPPY_ENV}/bin/python" -c "import cffi" 2>/dev/null; then
+  report "Installing cffi into klippy-env (Kalico chelper dependency)"
+  as_user "'${RK_KLIPPY_ENV}/bin/pip' install -q cffi" || warn "cffi install failed"
+fi
+"${RK_KLIPPY_ENV}/bin/python" -c "import cffi" 2>/dev/null && ok "cffi available in klippy-env" || warn "cffi missing"
+
 # --- 6) beacon_mesh.py: Kalico ZMesh(params, name) — no reactor arg --------------------
 # Stock Ratical/Klipper ZMesh.__init__(params, name, reactor); Kalico dropped reactor.
 # Without this, BEACON_RATICAL_CALIBRATE / BEACON_CREATE_SCAN_COMPENSATION_MESH dies with:

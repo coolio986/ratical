@@ -1,2 +1,6 @@
-# This file lists the Python package dependencies for Ratical Klipper extensions
-pygam==0.9.1
+# Python package dependencies for Ratical Klipper extensions
+# pygam>=0.10.1: 0.9.1 requires py<3.13, but Debian 13 (trixie) klippy-env is py3.13.
+pygam>=0.10.1
+# cffi: Kalico klippy chelper imports cffi; a KIAUH-built klippy-env may not include it,
+# which breaks calibrate_shaper.py / graph_accelerometer.py (run via klippy-env python).
+cffi
