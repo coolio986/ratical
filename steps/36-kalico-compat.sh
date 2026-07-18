@@ -29,11 +29,21 @@ if [[ -f "${KIN}" ]]; then
     grep -q "supports_dual_carriage" "${KIN}" && ok "supports_dual_carriage added" || warn "patch failed"
   else ok "supports_dual_carriage present"; fi
   # 2b) clear_homing_state method (Kalico force_move.py SET_KINEMATIC_POSITION calls it)
+  # Repair the original compatibility patch, which compared integer indexes to
+  # the "xyz" string and crashed every RESTART in stepper_enable.motor_off().
+  if grep -q "if i in axes:" "${KIN}"; then
+    report "Repairing clear_homing_state axis-name handling"
+    as_user "python3 -c \"p='${KIN}'; s=open(p).read(); s=s.replace('for i, _ in enumerate(self.limits):\n            if i in axes:\n                self.limits[i] = (1.0, -1.0)', 'for axis, axis_name in enumerate(\\\"xyz\\\"):\n            if axis_name in axes:\n                self.limits[axis] = (1.0, -1.0)'); open(p,'w').write(s)\""
+    ! grep -q "if i in axes:" "${KIN}" && ok "clear_homing_state repaired" || die "clear_homing_state repair failed"
+  fi
   if ! grep -q "def clear_homing_state" "${KIN}"; then
     report "Adding clear_homing_state to ratical_hybrid_corexy (Kalico kinematics API)"
-    as_user "python3 -c \"p='${KIN}'; s=open(p).read(); m='    def clear_homing_state(self, axes):\n        for i, _ in enumerate(self.limits):\n            if i in axes:\n                self.limits[i] = (1.0, -1.0)\n\n'; s=s.replace('    def home_axis(', m+'    def home_axis(', 1); open(p,'w').write(s)\""
+    as_user "python3 -c \"p='${KIN}'; s=open(p).read(); m='    def clear_homing_state(self, axes):\n        for axis, axis_name in enumerate(\\\"xyz\\\"):\n            if axis_name in axes:\n                self.limits[axis] = (1.0, -1.0)\n\n'; s=s.replace('    def home_axis(', m+'    def home_axis(', 1); open(p,'w').write(s)\""
     grep -q "def clear_homing_state" "${KIN}" && ok "clear_homing_state added" || warn "patch failed"
   else ok "clear_homing_state present"; fi
+  grep -Fq 'for axis, axis_name in enumerate("xyz")' "${KIN}" \
+    || die "clear_homing_state does not use Kalico axis-name semantics"
+  python3 -m py_compile "${KIN}" || die "ratical_hybrid_corexy.py failed syntax validation"
 fi
 
 # --- 3) beacon.cfg: log_points is a Ratical bed_mesh patch absent in Kalico -----------------
