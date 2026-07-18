@@ -28,7 +28,15 @@ if [[ -f "${KIN}" ]]; then
     as_user "python3 -c \"p='${KIN}'; s=open(p).read(); s=s.replace('self.printer = config.get_printer()','self.printer = config.get_printer()\n        self.supports_dual_carriage = True  # Kalico kinematics API (IDEX)',1); open(p,'w').write(s)\""
     grep -q "supports_dual_carriage" "${KIN}" && ok "supports_dual_carriage added" || warn "patch failed"
   else ok "supports_dual_carriage present"; fi
-  # 2b) clear_homing_state method (Kalico force_move.py SET_KINEMATIC_POSITION calls it)
+  # 2b) Kalico passes homing axes to set_position as names ("xyz"), not integer indexes.
+  if grep -q "for axis in homing_axes:" "${KIN}"; then
+    report "Updating set_position to Kalico axis-name handling"
+    as_user "python3 -c \"p='${KIN}'; s=open(p).read(); old='    def set_position(self, newpos, homing_axes):\n        for i, rail in enumerate(self.rails):\n            rail.set_position(newpos)\n            for axis in homing_axes:\n                if self.dc_module and axis == self.dc_module.axis:\n                    rail = self.dc_module.get_primary_rail().get_rail()\n                else:\n                    rail = self.rails[axis]\n                self.limits[axis] = rail.get_range()\n'; new='    def set_position(self, newpos, homing_axes):\n        for rail in self.rails:\n            rail.set_position(newpos)\n        for axis_name in homing_axes:\n            axis = \\\"xyz\\\".index(axis_name)\n            if self.dc_module and axis == self.dc_module.axis:\n                rail = self.dc_module.get_primary_rail().get_rail()\n            else:\n                rail = self.rails[axis]\n            self.limits[axis] = rail.get_range()\n'; s=s.replace(old,new); open(p,'w').write(s)\""
+    ! grep -q "for axis in homing_axes:" "${KIN}" && ok "set_position updated" || die "set_position repair failed"
+  fi
+  grep -Fq 'axis = "xyz".index(axis_name)' "${KIN}" \
+    || die "set_position does not use Kalico axis-name semantics"
+  # 2c) clear_homing_state method (Kalico force_move.py SET_KINEMATIC_POSITION calls it)
   # Repair the original compatibility patch, which compared integer indexes to
   # the "xyz" string and crashed every RESTART in stepper_enable.motor_off().
   if grep -q "if i in axes:" "${KIN}"; then

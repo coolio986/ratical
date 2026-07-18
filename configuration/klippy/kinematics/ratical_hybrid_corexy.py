@@ -13,6 +13,7 @@ from . import idex_modes
 class RaticalHybridCoreXYKinematics:
     def __init__(self, toolhead, config):
         self.printer = config.get_printer()
+        self.supports_dual_carriage = True
         self.inverted = False
         if config.has_section('ratical_hybrid_corexy'):
             hcxy_config = config.getsection('ratical_hybrid_corexy')
@@ -100,17 +101,21 @@ class RaticalHybridCoreXYKinematics:
         if l <= h:
             self.limits[i] = range
     def set_position(self, newpos, homing_axes):
-        for i, rail in enumerate(self.rails):
+        for rail in self.rails:
             rail.set_position(newpos)
-            for axis in homing_axes:
-                if self.dc_module and axis == self.dc_module.axis:
-                    rail = self.dc_module.get_primary_rail().get_rail()
-                else:
-                    rail = self.rails[axis]
-                self.limits[axis] = rail.get_range()
+        for axis_name in homing_axes:
+            axis = "xyz".index(axis_name)
+            if self.dc_module and axis == self.dc_module.axis:
+                rail = self.dc_module.get_primary_rail().get_rail()
+            else:
+                rail = self.rails[axis]
+            self.limits[axis] = rail.get_range()
     def note_z_not_homed(self):
-        # Helper for Safe Z Home
-        self.limits[2] = (1.0, -1.0)
+        self.clear_homing_state("z")
+    def clear_homing_state(self, clear_axes):
+        for axis, axis_name in enumerate("xyz"):
+            if axis_name in clear_axes:
+                self.limits[axis] = (1.0, -1.0)
     def home_axis(self, homing_state, axis, rail):
         position_min, position_max = rail.get_range()
         hi = rail.get_homing_info()
