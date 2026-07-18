@@ -19,7 +19,9 @@ report_status()
 update_package_managers()
 {
     report_status "Updating npm and pnpm..."
-    npm update -g npm pnpm
+    # Pin pnpm to 9.x: pnpm >=10 requires Node >=22.13 (loads node:sqlite) but the
+    # target runs Node 20 — an unpinned upgrade breaks `pnpm start` (service crash-loop).
+    npm update -g npm && npm install -g pnpm@9
 }
 
 install_or_update_service_file()
@@ -77,7 +79,7 @@ pnpm_install() {
 ensure_pnpm_installation() {
 	if ! which pnpm &> /dev/null; then
 		report_status "Installing pnpm"
-		npm install -g pnpm
+		npm install -g pnpm@9   # pin: pnpm >=10 needs Node >=22.13; target is Node 20
 		# remove old node modules
 		rm -rf "$SRC_DIR/node_modules"
 		pnpm_install
