@@ -27,27 +27,34 @@ if ! wait_for_moonraker; then
 fi
 
 seed_item() {
-  local key="$1"
-  local json_value="$2"
+  local ns="$1"
+  local key="$2"
+  local json_value="$3"
   local existing i
-  existing="$(curl -sf "${MOON}/server/database/item?namespace=Ratical&key=${key}" 2>/dev/null || true)"
+  existing="$(curl -sf "${MOON}/server/database/item?namespace=${ns}&key=${key}" 2>/dev/null || true)"
   if echo "${existing}" | grep -q '"value"'; then
-    ok "Ratical/${key} already present"
+    ok "${ns}/${key} already present"
     return 0
   fi
-  report "Seeding Ratical/${key}"
+  report "Seeding ${ns}/${key}"
   for i in 1 2 3; do
     if curl -sf -X POST "${MOON}/server/database/item" \
         -H "Content-Type: application/json" \
-        -d "{\"namespace\":\"Ratical\",\"key\":\"${key}\",\"value\":${json_value}}" >/dev/null 2>&1; then
-      ok "Ratical/${key} seeded"
+        -d "{\"namespace\":\"${ns}\",\"key\":\"${key}\",\"value\":${json_value}}" >/dev/null 2>&1; then
+      ok "${ns}/${key} seeded"
       return 0
     fi
     sleep 2
   done
-  warn "Failed to seed Ratical/${key} after retries — set it in the VAOC UI, or re-run: ./install.sh 65"
+  warn "Failed to seed ${ns}/${key} after retries — re-run: ./install.sh 65"
 }
 
 # VAOC visual calibration defaults (pixelPrMm tuned later in UI)
-seed_item "camera-settings" '{"flipHorizontal":false,"flipVertical":false,"pixelPrMm":160,"outerNozzleDiameter":1}'
-seed_item "camera-stream-settings" '{}'
+seed_item "Ratical" "camera-settings" '{"flipHorizontal":false,"flipVertical":false,"pixelPrMm":160,"outerNozzleDiameter":1}'
+seed_item "Ratical" "camera-stream-settings" '{}'
+
+# Mainsail 'general' — the configurator reads mainsail/general (e.g. printername).
+# A fresh Mainsail hasn't created it yet, so the read throws
+# "Key 'general' in namespace 'mainsail' not found". Seed a minimal default;
+# Mainsail overwrites it once the user changes any Mainsail setting.
+seed_item "mainsail" "general" '{"printername":"Ratical"}'
