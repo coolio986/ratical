@@ -69,6 +69,9 @@ export const PrinterRailSettings: React.FC<PrinterRailSettingsProps> = (props) =
 			: props.printerRail.driver,
 	);
 	const [stepper, setStepper] = useState(props.printerRail.stepper);
+	const [stepServoStepsPerRotation, setStepServoStepsPerRotation] = useState(
+		props.printerRail.stepServoStepsPerRotation ?? 4096,
+	);
 	const [homingSpeed, setHomingSpeed] = useState(
 		performanceMode
 			? props.printerRailDefault.performanceMode?.homingSpeed ?? props.printerRailDefault.homingSpeed
@@ -174,7 +177,8 @@ export const PrinterRailSettings: React.FC<PrinterRailSettingsProps> = (props) =
 	);
 
 	const supportedDrivers = Drivers.filter((d) => {
-		return d.protocol === 'UART' || board?.stepperSPI != null;
+		// Step servos use an external driver (protocol NONE) — always selectable.
+		return d.type === 'STEP_SERVO' || d.protocol === 'UART' || board?.stepperSPI != null;
 	}).map((d) => {
 		return {
 			...d,
@@ -258,6 +262,7 @@ export const PrinterRailSettings: React.FC<PrinterRailSettingsProps> = (props) =
 			voltage: voltage.id,
 			stepper,
 			current,
+			stepServoStepsPerRotation: driver.type === 'STEP_SERVO' ? stepServoStepsPerRotation : undefined,
 		};
 		const serializedNew = serializePrinterRail(newState);
 		const serializedOld = serializePrinterRail(props.printerRail);
@@ -271,6 +276,7 @@ export const PrinterRailSettings: React.FC<PrinterRailSettingsProps> = (props) =
 		}
 	}, [
 		current,
+		stepServoStepsPerRotation,
 		driver,
 		props.printerRail,
 		homingSpeed,
@@ -405,6 +411,19 @@ export const PrinterRailSettings: React.FC<PrinterRailSettingsProps> = (props) =
 								max={driver.maxCurrent}
 							/>
 						</div>
+						{driver.type === 'STEP_SERVO' && (
+							<div className="col-span-1">
+								<TextInput
+									type="number"
+									label="Servo steps/rev"
+									value={stepServoStepsPerRotation}
+									onChange={setStepServoStepsPerRotation}
+									inputMode="numeric"
+									step="1"
+									min={1}
+								/>
+							</div>
+						)}
 						{stepper.maxPeakCurrent / 1.41 < current && (
 							<Banner Icon={FireIcon} color="yellow" title="Stepper overcurrent!" className="col-span-full">
 								Your stepper motor is rated for {Math.floor((stepper.maxPeakCurrent * 100) / 1.41) / 100}A RMS, but you

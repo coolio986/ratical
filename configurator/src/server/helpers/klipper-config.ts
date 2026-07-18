@@ -524,6 +524,17 @@ export const constructKlipperConfigHelpers = async (
 			sections.push(this.renderBoardQuirks());
 			return sections.join('\n');
 		},
+		renderServoEnableDelay() {
+			// External step servos take ~500ms from enable to ready; the servo_enable_delay
+			// klippy extension dwells before homing so steps aren't sent to un-initialised drives.
+			const servoAxes = config.rails
+				.filter((r) => r.driver.type === 'STEP_SERVO')
+				.map((r) => utils.getAxisStepperName(r.axis));
+			if (servoAxes.length === 0) {
+				return '';
+			}
+			return ['[servo_enable_delay]', `axes: ${servoAxes.join(', ')}`, 'delay: 0.5', ''].join('\n');
+		},
 		renderStepperSection(axis: PrinterAxis | Zod.infer<typeof PrinterRail>, noHeader = false) {
 			const rail = typeof axis === 'object' ? axis : config.rails.find((r) => r.axis === axis);
 			if (rail == null) {
@@ -535,9 +546,17 @@ export const constructKlipperConfigHelpers = async (
 				`step_pin: ${utils.getRailPinValue(rail.axis, '_step_pin')}`,
 				`dir_pin: ${utils.getRailPinValue(rail.axis, '_dir_pin')}`,
 				`enable_pin: !${utils.getRailPinValue(rail.axis, '_enable_pin')}`,
-				`microsteps: ${rail.microstepping}`,
-				`full_steps_per_rotation: ${rail.stepper.fullStepsPerRotation}`,
 			);
+			if (rail.driver.type === 'STEP_SERVO') {
+				// Step servos: microstepping is fixed at 1, resolution comes from the servo's
+				// own pulses/rev (full_steps_per_rotation), and they need a wider step pulse.
+				section.push(`microsteps: 1`);
+				section.push(`full_steps_per_rotation: ${rail.stepServoStepsPerRotation ?? 4096}`);
+				section.push(`step_pulse_duration: 0.0000025`);
+			} else {
+				section.push(`microsteps: ${rail.microstepping}`);
+				section.push(`full_steps_per_rotation: ${rail.stepper.fullStepsPerRotation}`);
+			}
 			if (rail.axis === PrinterAxis.extruder || rail.axis === PrinterAxis.extruder1) {
 				const toolhead = utils.getToolhead(rail.axis);
 				if (toolhead == null) {
@@ -677,6 +696,12 @@ export const constructKlipperConfigHelpers = async (
 			const rail = typeof axis === 'object' ? axis : config.rails.find((r) => r.axis === axis);
 			if (rail == null) {
 				throw new Error(`No rail found for axis ${axis}`);
+			}
+			// Step-servo axes are driven by an external closed-loop driver — Klipper must not
+			// generate a [tmc...] section for them. Emitting nothing here is what retires the
+			// old strip_tmc.py hack.
+			if (rail.driver.type === 'STEP_SERVO') {
+				return '';
 			}
 			const preset = findPreset(rail.stepper, rail.driver, rail.voltage, rail.current);
 			const section = noHeader ? [] : utils.getMotorComments(rail);

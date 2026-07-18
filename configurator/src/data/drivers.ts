@@ -3,6 +3,18 @@ import { Driver } from '@/zods/motion';
 
 export const Drivers = z.array(Driver).parse([
 	{
+		// External closed-loop step servo. Takes step/dir/enable like a stepper but has its
+		// own external driver, so the configurator emits NO [tmc...] section for this axis.
+		id: 'STEP-SERVO',
+		title: 'Step Servo (external closed-loop)',
+		type: 'STEP_SERVO',
+		protocol: 'NONE',
+		coolingCurrentThreshold: 0,
+		voltages: [24, 36, 48],
+		maxCurrent: 10,
+		external: true,
+	},
+	{
 		id: 'LDO-TMC2209',
 		title: 'LDO TMC2209',
 		type: 'TMC2209',

@@ -28,6 +28,14 @@ export const Steppers = z.array(Stepper).parse([
 		maxPeakCurrent: 2.8,
 	},
 	{
+		// External closed-loop step servo (e.g. iHSS/step-servo). Driven step/dir like a
+		// stepper but has its own driver, so no Klipper [tmc...] section is generated.
+		id: 'step-servo-4096',
+		title: 'Step Servo (4096 steps/rev)',
+		fullStepsPerRotation: 4096,
+		maxPeakCurrent: 10,
+	},
+	{
 		id: 'BONDTECH-42H025H-0704-002',
 		title: 'Bondtech LGX Stepper',
 		maxPeakCurrent: 0.7,

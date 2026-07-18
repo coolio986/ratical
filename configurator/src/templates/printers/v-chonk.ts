@@ -31,6 +31,7 @@ ${helper.renderInputShaper(config.size)}
 ### STEPPER MOTORS, DRIVERS & SPEED LIMITS
 #############################################################################################################
 ${helper.renderMotorSections()}
+${helper.renderServoEnableDelay()}
 ${helper.renderSpeedLimits()}
 
 [bed_mesh]

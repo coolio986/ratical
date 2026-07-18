@@ -53,7 +53,7 @@ export const Driver = z
 	.object({
 		id: DriverID,
 		title: z.string(),
-		protocol: z.enum(['SPI', 'UART']),
+		protocol: z.enum(['SPI', 'UART', 'NONE']),
 		coolingCurrentThreshold: z.number(),
 		voltages: Voltage.array(),
 		maxCurrent: z.number().min(0),
@@ -68,6 +68,12 @@ export const Driver = z
 			.or(
 				z.object({
 					type: z.enum(['TMC2240']),
+				}),
+			)
+			.or(
+				z.object({
+					// External closed-loop step servo — no Klipper TMC driver section is generated.
+					type: z.enum(['STEP_SERVO']),
 				}),
 			),
 	);
@@ -179,6 +185,13 @@ export const BasePrinterRail = z.object({
 		.default(64)
 		.describe(
 			'Microstepping of the stepper driver, higher values increase resolution and lower noise but increases load on the MCU',
+		),
+	stepServoStepsPerRotation: z
+		.number()
+		.min(1)
+		.optional()
+		.describe(
+			'Pulses per revolution of an external step servo (klipper full_steps_per_rotation). Only used when the driver is a step servo; microstepping is forced to 1 for these axes.',
 		),
 });
 
