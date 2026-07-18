@@ -364,6 +364,10 @@ verify_registered_extensions()
             echo "Expected klipper extension not registered: $ext_name"
 			echo "Registering extension $ext_name..."
 			EXT_PATH="${expected_extensions[$ext_name]}"
+			if [[ -z "$EXT_PATH" || ! -f "$EXT_PATH" ]]; then
+				echo "Skipping $ext_name — extension file not present (external/optional): '${EXT_PATH:-<empty>}'"
+				continue
+			fi
 			ratical extensions register klipper "$ext_name" "$EXT_PATH"
         else
 			echo "Klipper extension $ext_name is properly registered."
@@ -376,6 +380,10 @@ verify_registered_extensions()
 			echo "Expected moonraker extension not registered: $ext_name"
 			echo "Registering extension $ext_name..."
 			EXT_PATH="${expected_moonraker_extensions[$ext_name]}"
+			if [[ -z "$EXT_PATH" || ! -f "$EXT_PATH" ]]; then
+				echo "Skipping $ext_name — extension file not present (external/optional): '${EXT_PATH:-<empty>}'"
+				continue
+			fi
 			ratical extensions register moonraker "$ext_name" "$EXT_PATH"
 		else
 			echo "Moonraker extension $ext_name is properly registered."
@@ -388,6 +396,10 @@ verify_registered_extensions()
             echo "Expected klipper kinematics extension not registered: $ext_name"
 			echo "Registering klipper kinematics extension $ext_name..."
 			EXT_PATH="${kinematics_extensions[$ext_name]}"
+			if [[ -z "$EXT_PATH" || ! -f "$EXT_PATH" ]]; then
+				echo "Skipping $ext_name — extension file not present (external/optional): '${EXT_PATH:-<empty>}'"
+				continue
+			fi
 			ratical extensions register klipper -k "$ext_name" "$EXT_PATH"
 		else
 			echo "Klipper kinematics extension $ext_name is properly registered."
