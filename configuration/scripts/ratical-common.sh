@@ -30,7 +30,7 @@ run_as_user() {
 
 # System package requirements for Ratical (read by Moonraker and scripts)
 # shellcheck disable=SC2034
-PKGLIST="python3-numpy python3-matplotlib curl git libopenblas-base"
+PKGLIST="python3-numpy python3-matplotlib curl git libopenblas0-pthread"
 
 report_status()
 {
