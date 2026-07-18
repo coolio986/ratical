@@ -99,8 +99,12 @@ install_hooks()
 	if [ -L "$GIT_DIR/hooks/post-merge" ]; then
  	   rm "$GIT_DIR/hooks/post-merge"
 	fi
-	ln -s "$SCRIPT_DIR/post-merge.sh" "$GIT_DIR/hooks/post-merge"
-	echo "Post-merge git-hook installed!"
+	# Mono-repo: do NOT install the configurator's legacy self-update post-merge
+	# hook. Updates run via `./install.sh` (also the moonraker [update_manager
+	# ratical] install_script). The old hook runs klipper-fork-migration and
+	# node18/nodesource logic that does not apply to a Kalico/Trixie mono-repo and
+	# errors on every `git pull`. The block above removes any stale hook.
+	echo "Skipping legacy post-merge self-update hook (mono-repo updates via install.sh)"
 }
 
 install_logrotation() {
