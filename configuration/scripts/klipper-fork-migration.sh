@@ -168,7 +168,8 @@ readonly DEPRECATED_FORK_URLS=(
 	"https://github.com/tg73/klipper.git" # tg73 fork sometimes used during development
 )
 readonly RATICAL_FORK_REMOTE="ratical-fork"
-readonly TARGET_BRANCH="ratical/v2.1.x"
+# Track KalicoCrew/kalico main — there is no Ratical-owned klipper branch.
+readonly TARGET_BRANCH="main"
 readonly MOONRAKER_CONF_PATH="$SCRIPT_DIR/../moonraker.conf"
 
 # extract_target_commit_from_moonraker() - Dynamically extracts klipper pinned_commit from moonraker.conf

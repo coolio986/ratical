@@ -6,7 +6,7 @@
 # Modified by Mikkel Schmidt to generate resonances at a static frequency 
 #
 # This file may be distributed under the terms of the GNU GPLv3 license.
-from toolhead import ToolHead
+from klippy.toolhead import ToolHead
 from . import resonance_tester
 
 class VibrationGenerator:

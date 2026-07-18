@@ -4,6 +4,7 @@
 	"version": "2.1.0",
 	"scripts": {
 		"dev": "next dev | pino-pretty -c",
+		"prebuild": "cp node_modules/@tensorflow/tfjs-backend-wasm/dist/tfjs-backend-wasm.wasm node_modules/@tensorflow/tfjs-backend-wasm/dist/tfjs-backend-wasm-simd.wasm node_modules/@tensorflow/tfjs-backend-wasm/dist/tfjs-backend-wasm-threaded-simd.wasm public/",
 		"build": "next build",
 		"start": "sleep 1 && curl -s -o /dev/null --retry 20 --retry-all-errors --retry-delay 1 --retry-max-time 60 \"http://localhost:3000/configure\" &> /dev/null &\nnext start",
 		"lint": "next lint",

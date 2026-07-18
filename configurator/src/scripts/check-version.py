@@ -7,15 +7,15 @@
 import sys
 import os
 KLIPPER_DIR = os.path.abspath(os.environ['KLIPPER_DIR'])
-sys.path.append(os.path.join(KLIPPER_DIR, "klippy"))
+sys.path.append(KLIPPER_DIR)
 import argparse
 import logging
 import time
 import traceback
-import reactor
-import serialhdl
-import clocksync
-import mcu
+from klippy import reactor
+from klippy import serialhdl
+from klippy import clocksync
+from klippy import mcu
 
 ###########################################################
 #

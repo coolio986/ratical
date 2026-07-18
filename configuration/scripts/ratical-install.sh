@@ -48,5 +48,6 @@ install_udev_rules
 install_beacon
 install_hooks
 install_dependencies
+ensure_pip_requirements
 ensure_sudo_command_whitelisting
 verify_registered_extensions

@@ -20,7 +20,7 @@ export const MacroRunChart = ({
 	subcomponentSeries,
 }: MacroRunChartProps) => {
 	const series = useMemo<UPlotPSDSeries[]>(() => {
-		const result = sequenceSeries.map((sequence) => ({
+		const result: UPlotPSDSeries[] = sequenceSeries.map((sequence) => ({
 			label: sequence.name,
 			color: shadableTWColors[sequence.color][400],
 			frequencies: sequence.psd.total.frequencies,

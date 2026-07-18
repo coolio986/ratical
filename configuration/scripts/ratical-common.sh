@@ -107,6 +107,24 @@ install_beacon()
 	# Beacon extension will be registered in verify_registered_extensions
 }
 
+ensure_pip_requirements()
+{
+	report_status "Installing Ratical Python requirements into Klipper env"
+	local req_file="${SCRIPT_DIR}/../klippy/requirements.txt"
+	local py_bin="${KLIPPER_ENV}/bin/python"
+
+	if [ -z "${KLIPPER_ENV:-}" ] || [ ! -x "$py_bin" ]; then
+		echo "Klipper environment not found or KLIPPER_ENV unset: ${KLIPPER_ENV:-}"
+		return 1
+	fi
+	if [ ! -f "$req_file" ]; then
+		echo "Requirements file not found: $req_file"
+		return 1
+	fi
+
+	run_as_user "${RATICAL_USERNAME}" "$py_bin" -m pip install -r "$req_file"
+}
+
 regenerate_config() {
     report_status "Regenerating Ratical configuration via Ratical Configurator..."
 

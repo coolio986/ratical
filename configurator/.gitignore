@@ -13,9 +13,10 @@
 # logs
 *.log
 
-# SciChart data
+# SciChart data (removed from OSS build; do not commit leftovers)
 src/public/scichart*
-src/public/tfjs*
+# TensorFlow WASM backends are required by input-shaper fitting and MUST be committed
+# (copied from @tensorflow/tfjs-backend-wasm via copy-files-from-to.json).
 
 # Default printer config directory for development
 devbox.d/printer-config/

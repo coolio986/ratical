@@ -90,11 +90,11 @@ export const useRealtimeAnalysisChart = (
 			return;
 		}
 		psdSetter.current({
-			freq: res.total.frequencies,
-			x: res.x.estimates,
-			y: res.y.estimates,
-			z: res.z.estimates,
-			total: res.total.estimates,
+			freq: Array.from(res.total.frequencies),
+			x: Array.from(res.x.estimates),
+			y: Array.from(res.y.estimates),
+			z: Array.from(res.z.estimates),
+			total: Array.from(res.total.estimates),
 		});
 	}, []);
 

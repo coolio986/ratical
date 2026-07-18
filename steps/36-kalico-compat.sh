@@ -52,6 +52,13 @@ if [[ -f "${KIN}" ]]; then
   grep -Fq 'for axis, axis_name in enumerate("xyz")' "${KIN}" \
     || die "clear_homing_state does not use Kalico axis-name semantics"
   python3 -m py_compile "${KIN}" || die "ratical_hybrid_corexy.py failed syntax validation"
+  # 2e) Kalico package imports (extras/kinematics are loaded as klippy package modules)
+  if grep -qE '^import stepper$' "${KIN}"; then
+    report "Updating ratical_hybrid_corexy imports for Kalico package layout"
+    as_user "sed -i 's|^import stepper\$|from klippy import stepper|' '${KIN}'"
+  fi
+  grep -qE '^from klippy import stepper$' "${KIN}" \
+    || die "ratical_hybrid_corexy still uses flat stepper import"
 fi
 
 # --- 2d) ratical_homing: Kalico toolhead.set_position expects named homing axes ----------
@@ -64,6 +71,26 @@ if [[ -f "${HOMING}" ]]; then
   grep -Fq 'homing_axes="z"' "${HOMING}" \
     || die "ratical_homing does not use Kalico axis-name semantics"
   python3 -m py_compile "${HOMING}" || die "ratical_homing.py failed syntax validation"
+fi
+
+# --- 2f) resonance_generator / z_offset_probe: Kalico package imports --------------------
+RG="${RATICAL_DIR}/klippy/resonance_generator.py"
+if [[ -f "${RG}" ]]; then
+  if grep -qE '^from toolhead import ToolHead$' "${RG}"; then
+    report "Updating resonance_generator imports for Kalico package layout"
+    as_user "sed -i 's|^from toolhead import ToolHead\$|from klippy.toolhead import ToolHead|' '${RG}'"
+  fi
+  grep -qE '^from klippy.toolhead import ToolHead$' "${RG}" \
+    || die "resonance_generator still uses flat toolhead import"
+fi
+ZOP="${RATICAL_DIR}/klippy/z_offset_probe.py"
+if [[ -f "${ZOP}" ]]; then
+  if grep -qE '^import pins$' "${ZOP}"; then
+    report "Updating z_offset_probe imports for Kalico package layout"
+    as_user "sed -i 's|^import pins\$|from klippy import pins|' '${ZOP}'"
+  fi
+  grep -qE '^from klippy import pins$' "${ZOP}" \
+    || die "z_offset_probe still uses flat pins import"
 fi
 
 # --- 3) beacon.cfg: log_points is a Ratical bed_mesh patch absent in Kalico -----------------
@@ -126,6 +153,25 @@ p.write_text(s)
   fi
 elif [[ -f "${BM}" ]]; then
   ok "beacon_mesh ZMesh already Kalico-compatible"
+fi
+
+# The Ratical helper also clones the active bed mesh when moving its zero reference.
+RP="${RATICAL_DIR}/klippy/ratical.py"
+if [[ -f "${RP}" ]] && grep -qE 'BedMesh\.ZMesh\([^)]*self\.reactor\)' "${RP}"; then
+  report "Patching ratical.py ZMesh calls for Kalico (drop reactor arg)"
+  as_user "python3 -c \"
+from pathlib import Path
+p = Path('${RP}')
+s = p.read_text().replace(
+    'BedMesh.ZMesh(org_mesh.get_mesh_params(), org_mesh.get_profile_name(), self.reactor)',
+    'BedMesh.ZMesh(org_mesh.get_mesh_params(), org_mesh.get_profile_name())')
+p.write_text(s)
+\""
+fi
+if [[ -f "${RP}" ]]; then
+  grep -qE 'BedMesh\.ZMesh\([^)]*self\.reactor\)' "${RP}" \
+    && die "ratical.py still uses the pre-Kalico ZMesh reactor argument" \
+    || ok "ratical.py ZMesh calls Kalico-compatible"
 fi
 
 # --- 7) Resonance graphs: force klippy-env for Kalico (cffi / chelper) -------------------
@@ -196,13 +242,17 @@ if [[ -f "${RK_KLIPPER_DIR}/scripts/calibrate_shaper.py" && -x "${RK_KLIPPY_ENV}
 fi
 
 # Kalico defaults sweeping_period to 0; preserve RatOS/Ratical's 1.2s slow sweep.
-_RC="${RK_CONFIG}/Ratical.cfg"
-if [[ -f "${_RC}" ]] && grep -qE '^\[resonance_tester\]' "${_RC}" \
-    && ! grep -qE '^sweeping_period:' "${_RC}"; then
-  report "Adding sweeping_period/sweeping_accel to [resonance_tester] in Ratical.cfg"
+# Patch live printer_data configs (Ratical.cfg and any Save_config leftovers) plus any
+# bundled templates that somehow still lack the keys.
+_patch_sweeping_period() {
+  local cfg="$1"
+  [[ -f "${cfg}" ]] || return 0
+  grep -qE '^\[resonance_tester\]' "${cfg}" || return 0
+  grep -qE '^sweeping_period:' "${cfg}" && return 0
+  report "Adding sweeping_period/sweeping_accel to ${cfg#"${RK_CONFIG}/"}"
   as_user "python3 -c \"
 from pathlib import Path
-p = Path('${_RC}')
+p = Path('${cfg}')
 lines = p.read_text().splitlines(True)
 out = []
 i = 0
@@ -226,9 +276,13 @@ while i < len(lines):
     i += 1
 p.write_text(''.join(out))
 \""
-  grep -qE '^sweeping_period:' "${_RC}" \
-    || die "sweeping_period patch failed"
-fi
+  grep -qE '^sweeping_period:' "${cfg}" \
+    || die "sweeping_period patch failed for ${cfg}"
+}
+_patch_sweeping_period "${RK_CONFIG}/Ratical.cfg"
+while IFS= read -r -d '' _cfg; do
+  _patch_sweeping_period "${_cfg}"
+done < <(find "${RK_CONFIG}" "${RATICAL_DIR}" -name '*.cfg' -print0 2>/dev/null)
 
 # --- 8) Configurator UI sanity (SciChart must be gone; VAOC uses MJPEG) -------------------
 # Analysis/VAOC now ship as MIT uPlot + MJPEG-first camera (`/webcam/stream`). Do NOT
