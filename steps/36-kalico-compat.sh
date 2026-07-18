@@ -54,6 +54,18 @@ if [[ -f "${KIN}" ]]; then
   python3 -m py_compile "${KIN}" || die "ratical_hybrid_corexy.py failed syntax validation"
 fi
 
+# --- 2d) ratical_homing: Kalico toolhead.set_position expects named homing axes ----------
+HOMING="${RATICAL_DIR}/klippy/ratical_homing.py"
+if [[ -f "${HOMING}" ]]; then
+  if grep -Fq 'homing_axes=[2]' "${HOMING}"; then
+    report "Updating ratical_homing Z-hop to Kalico axis-name handling"
+    as_user "python3 -c \"p='${HOMING}'; s=open(p).read(); s=s.replace('homing_axes=[2]', 'homing_axes=\\\"z\\\"'); open(p,'w').write(s)\""
+  fi
+  grep -Fq 'homing_axes="z"' "${HOMING}" \
+    || die "ratical_homing does not use Kalico axis-name semantics"
+  python3 -m py_compile "${HOMING}" || die "ratical_homing.py failed syntax validation"
+fi
+
 # --- 3) beacon.cfg: log_points is a Ratical bed_mesh patch absent in Kalico -----------------
 BC="${RATICAL_DIR}/z-probe/beacon.cfg"
 if [[ -f "${BC}" ]] && grep -qE "^log_points:" "${BC}"; then
@@ -116,23 +128,107 @@ elif [[ -f "${BM}" ]]; then
   ok "beacon_mesh ZMesh already Kalico-compatible"
 fi
 
-# --- 7) Belt-tension graphs: run graph_accelerometer.py via klippy-env -------------------
-# Scripts invoke graph_accelerometer.py by path; its shebang is system python3, which on
-# Kalico fails with ModuleNotFoundError: cffi (chelper). Always use KLIPPER_ENV python.
-for _bt in \
-  "${RATICAL_DIR}/scripts/idex-generate-belt-tension-graph.sh" \
-  "${RATICAL_DIR}/scripts/generate-belt-tension-graph.sh"
-do
-  [[ -f "${_bt}" ]] || continue
-  if grep -qE '\$\{KLIPPER_ENV\}"/bin/python.*graph_accelerometer' "${_bt}" \
-    || grep -qE "\$\{KLIPPER_ENV\}/bin/python.*graph_accelerometer" "${_bt}"; then
-    ok "belt graph uses klippy-env: $(basename "${_bt}")"
-  elif grep -q 'graph_accelerometer.py' "${_bt}"; then
-    report "Patching $(basename "${_bt}") to use KLIPPER_ENV python"
-    as_user "sed -i 's|\"\${KLIPPER_DIR}\"/scripts/graph_accelerometer.py|\"\${KLIPPER_ENV}\"/bin/python \"\${KLIPPER_DIR}\"/scripts/graph_accelerometer.py|g' '${_bt}'"
-    ok "patched $(basename "${_bt}")"
+# --- 7) Resonance graphs: force klippy-env for Kalico (cffi / chelper) -------------------
+# Rewrite Klipper graph-script shebangs as a fallback for direct callers.
+for _ks in calibrate_shaper.py graph_accelerometer.py; do
+  _kp="${RK_KLIPPER_DIR}/scripts/${_ks}"
+  [[ -f "${_kp}" ]] || continue
+  if head -1 "${_kp}" | grep -qF "${RK_KLIPPY_ENV}/bin/python"; then
+    ok "shebang already klippy-env: ${_ks}"
+  else
+    report "Rewriting shebang of ${_ks} -> ${RK_KLIPPY_ENV}/bin/python"
+    as_user "python3 -c \"
+from pathlib import Path
+p = Path('${_kp}')
+lines = p.read_text().splitlines(True)
+if lines and lines[0].startswith('#!'):
+    lines[0] = '#!${RK_KLIPPY_ENV}/bin/python\\n'
+else:
+    lines.insert(0, '#!${RK_KLIPPY_ENV}/bin/python\\n')
+p.write_text(''.join(lines))
+\""
+    head -1 "${_kp}" | grep -qF "${RK_KLIPPY_ENV}/bin/python" \
+      && ok "shebang patched: ${_ks}" \
+      || die "shebang patch failed: ${_ks}"
   fi
 done
+
+# Rewrite every bundled belt/shaper wrapper to invoke through klippy-env.
+for _bt in \
+  "${RATICAL_DIR}/scripts/idex-generate-belt-tension-graph.sh" \
+  "${RATICAL_DIR}/scripts/generate-belt-tension-graph.sh" \
+  "${RATICAL_DIR}/scripts/idex-generate-shaper-graph.sh" \
+  "${RATICAL_DIR}/scripts/generate-shaper-graph-x.sh" \
+  "${RATICAL_DIR}/scripts/generate-shaper-graph-y.sh"
+do
+  [[ -f "${_bt}" ]] || continue
+  _res="$(as_user "python3 -c \"
+from pathlib import Path
+p = Path('${_bt}')
+s = p.read_text()
+orig = s
+for name in ('calibrate_shaper.py', 'graph_accelerometer.py'):
+    bare = '\\\"\\\${KLIPPER_DIR}\\\"/scripts/' + name
+    wrapped = '\\\"\\\${KLIPPER_ENV}\\\"/bin/python ' + bare
+    s = s.replace(wrapped, '@@WRAPPED@@')
+    s = s.replace(bare, wrapped)
+    s = s.replace('@@WRAPPED@@', wrapped)
+if s != orig:
+    p.write_text(s)
+    print('patched')
+else:
+    print('ok')
+\"" | tail -1)"
+  if [[ "${_res}" == "patched" ]]; then
+    ok "wrapper patched -> klippy-env: $(basename "${_bt}")"
+  else
+    ok "wrapper already klippy-env: $(basename "${_bt}")"
+  fi
+done
+
+# Prove the Kalico shaper module imports under klippy-env.
+if [[ -f "${RK_KLIPPER_DIR}/scripts/calibrate_shaper.py" && -x "${RK_KLIPPY_ENV}/bin/python" ]]; then
+  if as_user "cd '${RK_KLIPPER_DIR}' && '${RK_KLIPPY_ENV}/bin/python' -c 'import cffi; from klippy.extras import shaper_calibrate'" >/dev/null 2>&1; then
+    ok "klippy-env can import shaper_calibrate + cffi"
+  else
+    warn "klippy-env cannot import shaper_calibrate/cffi"
+  fi
+fi
+
+# Kalico defaults sweeping_period to 0; preserve RatOS/Ratical's 1.2s slow sweep.
+_RC="${RK_CONFIG}/Ratical.cfg"
+if [[ -f "${_RC}" ]] && grep -qE '^\[resonance_tester\]' "${_RC}" \
+    && ! grep -qE '^sweeping_period:' "${_RC}"; then
+  report "Adding sweeping_period/sweeping_accel to [resonance_tester] in Ratical.cfg"
+  as_user "python3 -c \"
+from pathlib import Path
+p = Path('${_RC}')
+lines = p.read_text().splitlines(True)
+out = []
+i = 0
+while i < len(lines):
+    out.append(lines[i])
+    if lines[i].strip() == '[resonance_tester]':
+        body = []
+        j = i + 1
+        while j < len(lines) and lines[j].strip() and not lines[j].startswith('['):
+            body.append(lines[j]); j += 1
+        inserted = False
+        for b in body:
+            if b.lstrip().startswith('probe_points:') and not inserted:
+                out.extend(['sweeping_period: 1.2\\n', 'sweeping_accel: 400\\n'])
+                inserted = True
+            out.append(b)
+        if not inserted:
+            out.extend(['sweeping_period: 1.2\\n', 'sweeping_accel: 400\\n'])
+        i = j
+        continue
+    i += 1
+p.write_text(''.join(out))
+\""
+  grep -qE '^sweeping_period:' "${_RC}" \
+    || die "sweeping_period patch failed"
+fi
 
 # --- 8) Configurator UI sanity (SciChart must be gone; VAOC uses MJPEG) -------------------
 # Analysis/VAOC now ship as MIT uPlot + MJPEG-first camera (`/webcam/stream`). Do NOT
