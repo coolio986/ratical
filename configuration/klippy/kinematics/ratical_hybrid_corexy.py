@@ -101,20 +101,21 @@ class RaticalHybridCoreXYKinematics:
         if l <= h:
             self.limits[i] = range
     def set_position(self, newpos, homing_axes):
+        # homing_axes is a list of integer axis indices (Kalico core API).
         for rail in self.rails:
             rail.set_position(newpos)
-        for axis_name in homing_axes:
-            axis = "xyz".index(axis_name)
+        for axis in homing_axes:
             if self.dc_module and axis == self.dc_module.axis:
                 rail = self.dc_module.get_primary_rail().get_rail()
             else:
                 rail = self.rails[axis]
             self.limits[axis] = rail.get_range()
     def note_z_not_homed(self):
-        self.clear_homing_state("z")
+        self.clear_homing_state([2])
     def clear_homing_state(self, clear_axes):
-        for axis, axis_name in enumerate("xyz"):
-            if axis_name in clear_axes:
+        # clear_axes is a collection of integer axis indices (Kalico core API).
+        for axis in range(3):
+            if axis in clear_axes:
                 self.limits[axis] = (1.0, -1.0)
     def home_axis(self, homing_state, axis, rail):
         position_min, position_max = rail.get_range()

@@ -49,6 +49,20 @@ report "Materializing registered klippy extensions into klipper (ratical extensi
 as_user "ratical extensions symlink" || warn "ratical extensions symlink failed — run manually: ratical extensions symlink"
 ok "extensions symlinked into klipper"
 
+# Guard against Kalico core-API drift in our forked klippy extensions. When the Kalico
+# branch changes, the core API can move under them and only blow up at runtime (e.g. a
+# G28 "Internal error"). Fail the install loudly instead of shipping a printer that
+# can't home.
+report "Checking klippy extension API compatibility with installed Kalico"
+CHECK_API="${RK_ROOT}/scripts/check-klippy-api.py"
+if [[ -f "${CHECK_API}" ]]; then
+  as_user "python3 '${CHECK_API}' '${RK_KLIPPER_DIR}' '$(readlink -f "${RATICAL_CFG_DIR}")/klippy'" \
+    || die "klippy extension API check failed (see above) — fix the flagged modules before continuing."
+  ok "klippy extensions match Kalico core API"
+else
+  warn "check-klippy-api.py not found — skipping klippy API compatibility check"
+fi
+
 # The bundled install_udev_rules has a CFG_DIR bug: it creates a single broken symlink
 # literally named '*.rules' (unexpanded glob) instead of per-board rules, so /dev/Ratical/*
 # and /dev/<board> never appear (breaks flashing + MCU serial paths). Install them right.
