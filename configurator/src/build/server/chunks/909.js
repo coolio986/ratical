@@ -2,7 +2,7 @@
 [filament_switch_sensor toolhead_filament_sensor_${t.getShortToolName()}]
 pause_on_runout: False
 event_delay: 1.0
-switch_pin: ${o.invertRunoutPin?"!":""}${o.pullUpRunoutPin?"^":""}${e.getPrefixedPinFromAlias("filament_sensor_runout_pin")}
+switch_pin: ${o.pullUpRunoutPin?"^":""}${o.invertRunoutPin?"!":""}${e.getPrefixedPinFromAlias("filament_sensor_runout_pin")}
 runout_gcode:
 	_ON_TOOLHEAD_FILAMENT_SENSOR_RUNOUT TOOLHEAD=${t.getTool()}
 insert_gcode:

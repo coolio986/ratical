@@ -20,7 +20,7 @@ export const renderToolheadTemplate: RenderToolheadTemplateFn = (ctx) => {
 [filament_switch_sensor toolhead_filament_sensor_${th.getShortToolName()}]
 pause_on_runout: False
 event_delay: 1.0
-switch_pin: ${opts.invertRunoutPin ? '!' : ''}${opts.pullUpRunoutPin ? '^' : ''}${ctx.getPrefixedPinFromAlias('filament_sensor_runout_pin')}
+switch_pin: ${opts.pullUpRunoutPin ? '^' : ''}${opts.invertRunoutPin ? '!' : ''}${ctx.getPrefixedPinFromAlias('filament_sensor_runout_pin')}
 runout_gcode:
 	_ON_TOOLHEAD_FILAMENT_SENSOR_RUNOUT TOOLHEAD=${th.getTool()}
 insert_gcode:
