@@ -16,7 +16,11 @@ as_user "cd '${RK_KLIPPER_DIR}' && cp -f '${FW}' .config && make olddefconfig >/
 [[ -f "${RK_KLIPPER_DIR}/out/klipper.elf" ]] || die "host MCU build failed (no out/klipper.elf)"
 
 report "Installing klipper_mcu binary + service"
-sudo cp "${RK_KLIPPER_DIR}/out/klipper.elf" /usr/local/bin/klipper_mcu
+# cp over a running executable fails with ETXTBSY ("Text file busy"). Copy to a
+# temp path then atomically rename it into place — rename works even while the old
+# binary is running (the restart below starts the new one).
+sudo cp "${RK_KLIPPER_DIR}/out/klipper.elf" /usr/local/bin/klipper_mcu.new
+sudo mv -f /usr/local/bin/klipper_mcu.new /usr/local/bin/klipper_mcu
 sudo cp "${RK_KLIPPER_DIR}/scripts/klipper-mcu.service" /etc/systemd/system/klipper_mcu.service
 sudo systemctl daemon-reload
 sudo systemctl enable klipper_mcu.service 2>/dev/null || true
