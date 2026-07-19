@@ -21,7 +21,8 @@ else
 fi
 
 # ratical-install.sh will (see configuration/scripts/ratical-common.sh):
-#   - write a fresh printer.cfg from templates/initial-printer.template.cfg
+#   - seed printer.cfg from templates/initial-printer.template.cfg ONLY if none exists
+#     (existing printer.cfg is reused, never overwritten on rerun)
 #   - symlink board udev rules
 #   - install beacon, git hooks, python deps
 #   - register klippy extensions via the `ratical` CLI (needs configurator up)
@@ -62,4 +63,8 @@ else
   warn "boards dir not found at ${BOARDS_DIR}"
 fi
 
-warn "printer.cfg is now the Ratical TEMPLATE. Your real V-Core 4 IDEX config (from 'Current Configuration/') gets restored in a later step / manually."
+if [[ -f "${RK_CONFIG}/printer.cfg.pre-ratical" ]]; then
+  ok "existing printer.cfg reused (template only seeds a fresh install). Backup at printer.cfg.pre-ratical."
+else
+  warn "fresh printer.cfg seeded from Ratical TEMPLATE. Restore your real V-Core 4 IDEX config (from 'Current Configuration/') in a later step / manually."
+fi

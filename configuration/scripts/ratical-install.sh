@@ -16,8 +16,14 @@ install_dependencies()
 
 install_printer_config()
 {
-    report_status "Copying printer configuration"
     PRINTER_CFG="${RATICAL_PRINTER_DATA_DIR}/config/printer.cfg"
+    # Reuse an existing printer.cfg — never clobber the user's live config on rerun.
+    # Only seed from the template on a fresh install (no printer.cfg yet).
+    if [ -f "$PRINTER_CFG" ]; then
+        report_status "Existing printer.cfg found — keeping it (not overwriting)"
+        return 0
+    fi
+    report_status "Writing initial printer.cfg from template"
     tail -n +2 "$CFG_DIR"/templates/initial-printer.template.cfg > "$PRINTER_CFG"
     # Ensure correct ownership if running as root
     if [ "$EUID" -eq 0 ]; then
