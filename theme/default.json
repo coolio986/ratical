@@ -1,114 +1,471 @@
 {
-  "general": { "displayZOffsetStandby": true, "displayCancelPrint": true, "printername": "Ratical" },
-  "control": { "extruder": { "feedamount": 50, "feedrate": 5 }, "style": "cross", "selectedCrossStep": 3 },
+  "general": {
+    "displayZOffsetStandby": true,
+    "displayCancelPrint": true,
+    "printername": "Ratical"
+  },
+  "control": {
+    "extruder": {
+      "feedamount": 50,
+      "feedrate": 5
+    },
+    "style": "cross",
+    "selectedCrossStep": 3
+  },
+  "console": {
+    "height": 500
+  },
   "dashboard": {
-    "control": { "useCross": true },
+    "control": {
+      "useCross": true
+    },
     "nonExpandPanels": [],
     "widescreenLayout3": [
-      { "name": "macrogroup_5752c70d-d04e-4d3b-a775-c7536704806b", "visible": true },
-      { "name": "macrogroup_8339b81d-189d-462b-8ae6-3f12ee2f2adc", "visible": true },
-      { "name": "macrogroup_301c19bd-632e-41d1-a8ea-3b131eccbfa0", "visible": true },
-      { "name": "miniconsole", "visible": true }
+      {
+        "name": "macrogroup_5752c70d-d04e-4d3b-a775-c7536704806b",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_80a09b03-74ed-4256-a255-4075dfd7e92b",
+        "visible": false
+      },
+      {
+        "name": "macrogroup_900d9140-9b24-4c9e-a022-f75c68f287f2",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_301c19bd-632e-41d1-a8ea-3b131eccbfa0",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_e948fe60-88b9-4f8b-9ccd-c28fa357926b",
+        "visible": true
+      },
+      {
+        "name": "miniconsole",
+        "visible": true
+      }
     ],
     "widescreenLayout1": [
-      { "name": "zoffset", "visible": true },
-      { "name": "control", "visible": true },
-      { "name": "miscellaneous", "visible": true }
+      {
+        "name": "zoffset",
+        "visible": true
+      },
+      {
+        "name": "control",
+        "visible": true
+      },
+      {
+        "name": "miscellaneous",
+        "visible": true
+      }
     ],
     "desktopLayout2": [
-      { "name": "tools", "visible": true },
-      { "name": "miniconsole", "visible": true },
-      { "name": "macrogroup_5752c70d-d04e-4d3b-a775-c7536704806b", "visible": true },
-      { "name": "macrogroup_301c19bd-632e-41d1-a8ea-3b131eccbfa0", "visible": true },
-      { "name": "macrogroup_8339b81d-189d-462b-8ae6-3f12ee2f2adc", "visible": true }
+      {
+        "name": "tools",
+        "visible": true
+      },
+      {
+        "name": "miniconsole",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_5752c70d-d04e-4d3b-a775-c7536704806b",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_80a09b03-74ed-4256-a255-4075dfd7e92b",
+        "visible": false
+      },
+      {
+        "name": "macrogroup_900d9140-9b24-4c9e-a022-f75c68f287f2",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_301c19bd-632e-41d1-a8ea-3b131eccbfa0",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_e948fe60-88b9-4f8b-9ccd-c28fa357926b",
+        "visible": true
+      }
     ],
     "desktopLayout1": [
-      { "name": "zoffset", "visible": true },
-      { "name": "control", "visible": true },
-      { "name": "printsettings", "visible": true },
-      { "name": "machine-settings", "visible": true },
-      { "name": "miscellaneous", "visible": true }
+      {
+        "name": "zoffset",
+        "visible": true
+      },
+      {
+        "name": "control",
+        "visible": true
+      },
+      {
+        "name": "printsettings",
+        "visible": true
+      },
+      {
+        "name": "machine-settings",
+        "visible": true
+      },
+      {
+        "name": "miscellaneous",
+        "visible": true
+      }
     ],
     "tabletLayout2": [
-      { "name": "tools", "visible": true },
-      { "name": "miniconsole", "visible": true },
-      { "name": "macrogroup_5752c70d-d04e-4d3b-a775-c7536704806b", "visible": true },
-      { "name": "macrogroup_8339b81d-189d-462b-8ae6-3f12ee2f2adc", "visible": true },
-      { "name": "macrogroup_301c19bd-632e-41d1-a8ea-3b131eccbfa0", "visible": true }
+      {
+        "name": "tools",
+        "visible": true
+      },
+      {
+        "name": "miniconsole",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_5752c70d-d04e-4d3b-a775-c7536704806b",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_80a09b03-74ed-4256-a255-4075dfd7e92b",
+        "visible": false
+      },
+      {
+        "name": "macrogroup_900d9140-9b24-4c9e-a022-f75c68f287f2",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_301c19bd-632e-41d1-a8ea-3b131eccbfa0",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_e948fe60-88b9-4f8b-9ccd-c28fa357926b",
+        "visible": true
+      }
     ],
     "tabletLayout1": [
-      { "name": "zoffset", "visible": true },
-      { "name": "control", "visible": true },
-      { "name": "printsettings", "visible": true },
-      { "name": "machine-settings", "visible": true },
-      { "name": "miscellaneous", "visible": true }
+      {
+        "name": "zoffset",
+        "visible": true
+      },
+      {
+        "name": "control",
+        "visible": true
+      },
+      {
+        "name": "printsettings",
+        "visible": true
+      },
+      {
+        "name": "machine-settings",
+        "visible": true
+      },
+      {
+        "name": "miscellaneous",
+        "visible": true
+      }
     ],
     "mobileLayout": [
-      { "name": "zoffset", "visible": true },
-      { "name": "control", "visible": true },
-      { "name": "printsettings", "visible": true },
-      { "name": "machine-settings", "visible": true },
-      { "name": "miscellaneous", "visible": true },
-      { "name": "tools", "visible": true },
-      { "name": "miniconsole", "visible": true },
-      { "name": "macrogroup_5752c70d-d04e-4d3b-a775-c7536704806b", "visible": true },
-      { "name": "macrogroup_8339b81d-189d-462b-8ae6-3f12ee2f2adc", "visible": true },
-      { "name": "macrogroup_301c19bd-632e-41d1-a8ea-3b131eccbfa0", "visible": true }
+      {
+        "name": "zoffset",
+        "visible": true
+      },
+      {
+        "name": "control",
+        "visible": true
+      },
+      {
+        "name": "printsettings",
+        "visible": true
+      },
+      {
+        "name": "machine-settings",
+        "visible": true
+      },
+      {
+        "name": "miscellaneous",
+        "visible": true
+      },
+      {
+        "name": "tools",
+        "visible": true
+      },
+      {
+        "name": "miniconsole",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_5752c70d-d04e-4d3b-a775-c7536704806b",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_80a09b03-74ed-4256-a255-4075dfd7e92b",
+        "visible": false
+      },
+      {
+        "name": "macrogroup_900d9140-9b24-4c9e-a022-f75c68f287f2",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_301c19bd-632e-41d1-a8ea-3b131eccbfa0",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_e948fe60-88b9-4f8b-9ccd-c28fa357926b",
+        "visible": true
+      }
     ]
   },
   "macros": {
     "mode": "expert",
     "macrogroups": {
+      "80a09b03-74ed-4256-a255-4075dfd7e92b": {
+        "name": "Chamber",
+        "color": "custom",
+        "colorCustom": "#84cc16",
+        "showInStandby": false,
+        "showInPause": false,
+        "showInPrinting": false,
+        "macros": [
+          {
+            "pos": 1,
+            "name": "CHAMBER_FILTER_ON",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 2,
+            "name": "CHAMBER_FILTER_OFF",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 3,
+            "name": "CHAMBER_HEATER_ON",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 4,
+            "name": "CHAMBER_HEATER_OFF",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          }
+        ]
+      },
       "5752c70d-d04e-4d3b-a775-c7536704806b": {
         "name": "Filament",
         "color": "primary",
-        "colorCustom": "#fff",
+        "colorCustom": "#0ea5e9",
         "showInStandby": true,
         "showInPause": true,
         "showInPrinting": true,
         "macros": [
-          { "pos": 1, "name": "LOAD_FILAMENT", "color": "group", "showInStandby": true, "showInPrinting": true, "showInPause": true },
-          { "pos": 3, "name": "M600", "color": "group", "showInStandby": true, "showInPrinting": true, "showInPause": true },
-          { "pos": 2, "name": "UNLOAD_FILAMENT", "color": "group", "showInStandby": true, "showInPrinting": true, "showInPause": true }
+          {
+            "pos": 1,
+            "name": "LOAD_FILAMENT",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 2,
+            "name": "UNLOAD_FILAMENT",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 3,
+            "name": "JOIN_SPOOLS",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 4,
+            "name": "COLD_PULL",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": false,
+            "showInPause": true
+          },
+          {
+            "pos": 5,
+            "name": "M600",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": false,
+            "showInPause": true
+          }
         ]
       },
       "301c19bd-632e-41d1-a8ea-3b131eccbfa0": {
         "name": "Debug",
         "color": "warning",
-        "colorCustom": "#fff",
+        "colorCustom": "#ef4444",
         "showInStandby": true,
-        "showInPause": false,
-        "showInPrinting": false,
+        "showInPause": true,
+        "showInPrinting": true,
         "macros": [
-          { "pos": 1, "name": "ECHO_RATICAL_VARS", "color": "group", "showInStandby": true, "showInPrinting": true, "showInPause": true },
-          { "pos": 2, "name": "Ratical", "color": "group", "showInStandby": true, "showInPrinting": true, "showInPause": true },
-          { "pos": 3, "name": "SET_CENTER_KINEMATIC_POSITION", "color": "group", "showInStandby": true, "showInPrinting": true, "showInPause": true }
-        ]
-      },
-      "8339b81d-189d-462b-8ae6-3f12ee2f2adc": {
-        "name": "Scripts",
-        "color": "primary",
-        "colorCustom": "#fff",
-        "showInStandby": true,
-        "showInPause": false,
-        "showInPrinting": false,
-        "macros": [
-          { "pos": 1, "name": "CHANGE_HOSTNAME", "color": "group", "showInStandby": true, "showInPrinting": false, "showInPause": false },
-          { "pos": 2, "name": "COMPILE_FIRMWARE", "color": "group", "showInStandby": true, "showInPrinting": false, "showInPause": false },
-          { "pos": 3, "name": "GENERATE_SHAPER_GRAPHS", "color": "group", "showInStandby": true, "showInPrinting": false, "showInPause": false }
+          {
+            "pos": 1,
+            "name": "ENABLE_DEBUG",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 2,
+            "name": "DISABLE_DEBUG",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 3,
+            "name": "SET_CENTER_KINEMATIC_POSITION",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": false,
+            "showInPause": false
+          }
         ]
       },
       "900d9140-9b24-4c9e-a022-f75c68f287f2": {
-        "name": "Installation",
+        "name": "Calibration",
+        "color": "custom",
+        "colorCustom": "#0284c7",
+        "showInStandby": true,
+        "showInPause": false,
+        "showInPrinting": true,
+        "macros": [
+          {
+            "pos": 1,
+            "name": "PID_CALIBRATE_HOTEND",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": false,
+            "showInPause": false
+          },
+          {
+            "pos": 2,
+            "name": "PID_CALIBRATE_BED",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": false,
+            "showInPause": false
+          },
+          {
+            "pos": 3,
+            "name": "PID_CALIBRATE_CHAMBER_HEATER",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": false,
+            "showInPause": false
+          },
+          {
+            "pos": 4,
+            "name": "MEASURE_COREXY_BELT_TENSION",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": false,
+            "showInPause": false
+          },
+          {
+            "pos": 5,
+            "name": "GENERATE_SHAPER_GRAPHS",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": false,
+            "showInPause": false
+          },
+          {
+            "pos": 6,
+            "name": "BEACON_RATICAL_CALIBRATE",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": false,
+            "showInPause": false
+          },
+          {
+            "pos": 7,
+            "name": "INITIALIZE_PA_TUNING",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          }
+        ]
+      },
+      "e948fe60-88b9-4f8b-9ccd-c28fa357926b": {
+        "name": "IDEX",
         "color": "primary",
         "colorCustom": "#fff",
         "showInStandby": true,
         "showInPause": true,
         "showInPrinting": true,
         "macros": [
-          { "pos": 1, "name": "INSTALL_VCORE_PRO_CONFIG", "color": "group", "showInStandby": true, "showInPrinting": true, "showInPause": true },
-          { "pos": 2, "name": "INSTALL_VCORE_THREE_CONFIG", "color": "group", "showInStandby": true, "showInPrinting": true, "showInPause": true },
-          { "pos": 3, "name": "INSTALL_VMINION_CONFIG", "color": "group", "showInStandby": true, "showInPrinting": true, "showInPause": true }
+          {
+            "pos": 1,
+            "name": "IDEX_SINGLE",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 2,
+            "name": "IDEX_COPY",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 3,
+            "name": "IDEX_MIRROR",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 4,
+            "name": "IDEX_PARK",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 5,
+            "name": "TOOLSHIFT_CONFIG",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          },
+          {
+            "pos": 6,
+            "name": "REMAP_TOOLHEADS",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": true,
+            "showInPause": true
+          }
         ]
       }
     }
@@ -119,35 +476,75 @@
         "name": "PLA",
         "gcode": "",
         "values": {
-          "extruder": { "bool": true, "value": "210", "type": "heater" },
-          "heater_bed": { "bool": true, "value": "60", "type": "heater" }
+          "extruder": {
+            "bool": true,
+            "value": "210",
+            "type": "heater"
+          },
+          "heater_bed": {
+            "bool": true,
+            "value": "60",
+            "type": "heater"
+          }
         }
       },
       "b20e19be-1d97-400b-91cc-8251d162ca0b": {
         "name": "PETG",
         "gcode": "",
         "values": {
-          "extruder": { "bool": true, "value": "245", "type": "heater" },
-          "heater_bed": { "bool": true, "value": "80", "type": "heater" }
+          "extruder": {
+            "bool": true,
+            "value": "245",
+            "type": "heater"
+          },
+          "heater_bed": {
+            "bool": true,
+            "value": "80",
+            "type": "heater"
+          }
         }
       },
       "6a0a0ce3-2696-418b-8bfd-433008370100": {
         "name": "ABS",
         "gcode": "",
         "values": {
-          "extruder": { "bool": true, "value": "250", "type": "heater" },
-          "heater_bed": { "bool": true, "value": "110", "type": "heater" }
+          "extruder": {
+            "bool": true,
+            "value": "250",
+            "type": "heater"
+          },
+          "heater_bed": {
+            "bool": true,
+            "value": "110",
+            "type": "heater"
+          }
         }
       }
     }
   },
-  "uiSettings": { "displayCancelPrint": true, "displayZOffsetStandby": true, "primary": "#99F321" },
+  "uiSettings": {
+    "displayCancelPrint": true,
+    "displayZOffsetStandby": true,
+    "primary": "#99F321"
+  },
   "view": {
-    "configfiles": { "sortDesc": true, "countPerPage": -1 },
+    "configfiles": {
+      "sortDesc": true,
+      "countPerPage": -1
+    },
     "tempchart": {
       "datasetSettings": {
-        "extruder": { "color": "#8E379D", "power": true, "temperature": true, "target": true },
-        "heater_bed": { "power": true, "target": true, "temperature": true }
+        "extruder": {
+          "color": "#8E379D",
+          "power": true,
+          "temperature": true,
+          "target": true
+        },
+        "heater_bed": {
+          "power": true,
+          "target": true,
+          "temperature": true
+        }
       },
       "autoscale": true
     }
