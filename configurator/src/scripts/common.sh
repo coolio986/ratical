@@ -235,28 +235,20 @@ ensure_sudo_command_whitelisting()
 
     report_status "Updating whitelisted commands"
 	# Whitelist Ratical configurator git hook scripts
-	if [[ -e /etc/sudoers.d/030-ratical-configurator-githooks ]]
-	then
-		$sudo rm /etc/sudoers.d/030-ratical-configurator-githooks
-	fi
-	touch /tmp/030-ratical-configurator-githooks
-	cat << __EOF > /tmp/030-ratical-configurator-githooks
+	gh_tmp="$(mktemp)"
+	cat << __EOF > "$gh_tmp"
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: $SCRIPT_DIR/update.sh
 __EOF
-
-	$sudo chown root:root /tmp/030-ratical-configurator-githooks
-	$sudo chmod 440 /tmp/030-ratical-configurator-githooks
-	$sudo cp --preserve=mode /tmp/030-ratical-configurator-githooks /etc/sudoers.d/030-ratical-configurator-githooks
+	chmod 440 "$gh_tmp"
+	$sudo cp --preserve=mode "$gh_tmp" /etc/sudoers.d/030-ratical-configurator-githooks
+	$sudo chown root:root /etc/sudoers.d/030-ratical-configurator-githooks
+	rm -f "$gh_tmp"
 
 	echo "Ratical configurator git hooks has successfully been whitelisted!"
 
 	# Whitelist configurator scripts
-	if [[ -e /etc/sudoers.d/030-ratical-configurator-scripts ]]
-	then
-		$sudo rm /etc/sudoers.d/030-ratical-configurator-scripts
-	fi
-	touch /tmp/030-ratical-configurator-scripts
-	cat << __EOF > /tmp/031-ratical-configurator-scripts
+	sc_tmp="$(mktemp)"
+	cat << __EOF > "$sc_tmp"
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: $SCRIPT_DIR/add-wifi-network.sh
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: $SCRIPT_DIR/change-hostname.sh
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: $SCRIPT_DIR/dfu-flash.sh
@@ -264,27 +256,23 @@ ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: $SCRIPT_DIR/board-script.sh
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: $SCRIPT_DIR/flash-path.sh
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: $SCRIPT_DIR/klipper-compile.sh
 __EOF
-
-	$sudo chown root:root /tmp/031-ratical-configurator-scripts
-	$sudo chmod 440 /tmp/031-ratical-configurator-scripts
-	$sudo cp --preserve=mode /tmp/031-ratical-configurator-scripts /etc/sudoers.d/031-ratical-configurator-scripts
+	chmod 440 "$sc_tmp"
+	$sudo cp --preserve=mode "$sc_tmp" /etc/sudoers.d/031-ratical-configurator-scripts
+	$sudo chown root:root /etc/sudoers.d/031-ratical-configurator-scripts
+	rm -f "$sc_tmp"
 
 	echo "Ratical configurator scripts has successfully been whitelisted!"
 
 	# Whitelist configurator commands
-	if [[ -e /etc/sudoers.d/031-ratical-configurator-wifi ]]
-	then
-		$sudo rm /etc/sudoers.d/031-ratical-configurator-wifi
-	fi
-	touch /tmp/031-ratical-configurator-wifi
-	cat << __EOF > /tmp/031-ratical-configurator-wifi
+	wf_tmp="$(mktemp)"
+	cat << __EOF > "$wf_tmp"
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: /usr/sbin/iw
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: /usr/sbin/wpa_cli
 __EOF
-
-	$sudo chown root:root /tmp/031-ratical-configurator-wifi
-	$sudo chmod 440 /tmp/031-ratical-configurator-wifi
-	$sudo cp --preserve=mode /tmp/031-ratical-configurator-wifi /etc/sudoers.d/031-ratical-configurator-wifi
+	chmod 440 "$wf_tmp"
+	$sudo cp --preserve=mode "$wf_tmp" /etc/sudoers.d/031-ratical-configurator-wifi
+	$sudo chown root:root /etc/sudoers.d/031-ratical-configurator-wifi
+	rm -f "$wf_tmp"
 
 	echo "Ratical configurator commands has successfully been whitelisted!"
 }
