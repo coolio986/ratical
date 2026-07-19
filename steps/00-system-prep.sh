@@ -59,3 +59,28 @@ if ! sudo swapon --show | grep -q .; then
 else
   ok "swap already present: $(sudo swapon --show=NAME --noheadings | tr '\n' ' ')"
 fi
+
+# --- CPU governor: performance ----------------------------------------------
+# 'ondemand' scales cores down when idle, adding latency spikes to Klipper step
+# generation. Pin all cores to 'performance' (persistent via systemd unit + set now).
+report "Setting CPU governor to performance"
+if [[ -e /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ]]; then
+  sudo tee /etc/systemd/system/cpu-performance.service >/dev/null <<'UNIT'
+[Unit]
+Description=Set CPU governor to performance (Ratical)
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c "echo performance | tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor"
+
+[Install]
+WantedBy=multi-user.target
+UNIT
+  sudo systemctl daemon-reload
+  sudo systemctl enable --now cpu-performance.service >/dev/null 2>&1 \
+    || echo performance | sudo tee /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor >/dev/null
+  ok "CPU governor set to performance ($(cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor))"
+else
+  warn "cpufreq not available on this host — skipping CPU governor"
+fi
