@@ -250,17 +250,18 @@ ensure_sudo_command_whitelisting()
 	then
 		$SUDO rm /etc/sudoers.d/030-ratical-githooks
 	fi
-	touch /tmp/030-ratical-githooks
-	cat <<EOF > /tmp/030-ratical-githooks
+	gh_tmp="$(mktemp)"
+	cat <<EOF > "$gh_tmp"
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: ${RATICAL_PRINTER_DATA_DIR}/config/Ratical/scripts/ratical-update.sh
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: ${RATICAL_PRINTER_DATA_DIR}/config/Ratical/scripts/klipper-mcu-update.sh
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: ${RATICAL_PRINTER_DATA_DIR}/config/Ratical/scripts/beacon-update.sh
 ${RATICAL_USERNAME}  ALL=(ALL) NOPASSWD: ${RATICAL_PRINTER_DATA_DIR}/config/Ratical/scripts/moonraker-update.sh
 EOF
 
-	$SUDO chown root:root /tmp/030-ratical-githooks
-	$SUDO chmod 440 /tmp/030-ratical-githooks
-	$SUDO cp --preserve=mode /tmp/030-ratical-githooks /etc/sudoers.d/030-ratical-githooks
+	chmod 440 "$gh_tmp"
+	$SUDO cp --preserve=mode "$gh_tmp" /etc/sudoers.d/030-ratical-githooks
+	$SUDO chown root:root /etc/sudoers.d/030-ratical-githooks
+	rm -f "$gh_tmp"
 
 	echo "Ratical git hooks has successfully been whitelisted!"
 }
