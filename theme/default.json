@@ -22,6 +22,10 @@
     "nonExpandPanels": [],
     "widescreenLayout3": [
       {
+        "name": "macrogroup_c66f4890-fdbe-49d0-9e4e-4ecb0bfb7b2b",
+        "visible": true
+      },
+      {
         "name": "macrogroup_5752c70d-d04e-4d3b-a775-c7536704806b",
         "visible": true
       },
@@ -67,6 +71,10 @@
       },
       {
         "name": "miniconsole",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_c66f4890-fdbe-49d0-9e4e-4ecb0bfb7b2b",
         "visible": true
       },
       {
@@ -119,6 +127,10 @@
       },
       {
         "name": "miniconsole",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_c66f4890-fdbe-49d0-9e4e-4ecb0bfb7b2b",
         "visible": true
       },
       {
@@ -191,6 +203,10 @@
       },
       {
         "name": "miniconsole",
+        "visible": true
+      },
+      {
+        "name": "macrogroup_c66f4890-fdbe-49d0-9e4e-4ecb0bfb7b2b",
         "visible": true
       },
       {
@@ -465,6 +481,24 @@
             "showInStandby": true,
             "showInPrinting": true,
             "showInPause": true
+          }
+        ]
+      },
+      "c66f4890-fdbe-49d0-9e4e-4ecb0bfb7b2b": {
+        "name": "Commissioning",
+        "color": "custom",
+        "colorCustom": "#a855f7",
+        "showInStandby": true,
+        "showInPause": false,
+        "showInPrinting": false,
+        "macros": [
+          {
+            "pos": 1,
+            "name": "RATICAL_COMMISSION",
+            "color": "group",
+            "showInStandby": true,
+            "showInPrinting": false,
+            "showInPause": false
           }
         ]
       }
