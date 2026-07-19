@@ -17,7 +17,13 @@ FORK_COPY="${RK_CONFIG}/Ratical/klippy/servo_enable_delay.py"
 
 DEST="${RK_CONFIG}/Ratical/klippy/servo_enable_delay.py"
 report "Installing servo_enable_delay extension"
-as_user "mkdir -p '$(dirname "${DEST}")' && cp '${SRC}' '${DEST}'"
+as_user "mkdir -p '$(dirname "${DEST}")'"
+# The extension is now a tracked bundled file (configuration/klippy/), so step 30
+# already puts it in place and SRC may resolve to DEST. Only copy when they differ,
+# otherwise 'cp x x' errors out and can abort the step.
+if [[ "$(realpath -m "${SRC}")" != "$(realpath -m "${DEST}")" ]]; then
+  as_user "cp '${SRC}' '${DEST}'"
+fi
 
 if command -v ratical >/dev/null 2>&1; then
   # no -e: -e means error-if-exists; we want idempotent re-runs
