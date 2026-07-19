@@ -3,3 +3,11 @@
   font-family: monospace;
   font-size: 13px;
 }
+
+/* The Ratical logo already contains the wordmark, so the printer-name text
+   Mainsail renders next to it in the top bar is redundant. Hide just that
+   element (its 4-class combo is unique to the top-bar title). printername is
+   left intact so the browser tab title still reads "Ratical". */
+.text-no-wrap.ml-0.pl-2.mr-2 {
+  display: none;
+}
