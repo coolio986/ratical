@@ -58,3 +58,23 @@ seed_item "Ratical" "camera-stream-settings" '{}'
 # "Key 'general' in namespace 'mainsail' not found". Seed a minimal default;
 # Mainsail overwrites it once the user changes any Mainsail setting.
 seed_item "mainsail" "general" '{"printername":"Ratical"}'
+
+# Mainsail macro-group cards + dashboard layout (the "cards" on the main screen).
+# Mainsail imports .theme/default.json ONLY at first init (gated by
+# mainsail/initVersion); on an already-initialized Mainsail these DB keys are what
+# actually drive the UI, and editing default.json / rerunning the installer does
+# nothing. Seed them from the theme default so the organized cards appear.
+# seed_item skips if the key already exists, so user customizations are preserved.
+THEME_DEFAULT="${RK_CONFIG}/.theme/default.json"
+if [[ -f "${THEME_DEFAULT}" ]]; then
+  for section in macros dashboard; do
+    val="$(python3 -c "import json; print(json.dumps(json.load(open('${THEME_DEFAULT}'))['${section}']))" 2>/dev/null)"
+    if [[ -n "${val}" ]]; then
+      seed_item "mainsail" "${section}" "${val}"
+    else
+      warn "could not read '${section}' from ${THEME_DEFAULT} — set macro cards in Mainsail"
+    fi
+  done
+else
+  warn "theme default.json not found at ${THEME_DEFAULT} — skipping macro-card seed"
+fi
