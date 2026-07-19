@@ -365,7 +365,19 @@ export const postprocessor = (program: Command) => {
 
 				if (!result.wasAlreadyProcessed && args.overwriteInput && result.isProcessed) {
 					getLogger().info({ outputFile, inputFile }, 'renaming output file to input file');
-					fs.renameSync(outputFile, inputFile);
+					// zx's tmpfile() lives in os.tmpdir(), which on many Pi OS setups is a tmpfs
+					// mount separate from the gcodes directory. A bare rename across filesystems
+					// throws EXDEV and aborts the print, so fall back to copy+unlink in that case.
+					try {
+						fs.renameSync(outputFile, inputFile);
+					} catch (e) {
+						if ((e as NodeJS.ErrnoException)?.code === 'EXDEV') {
+							fs.copyFileSync(outputFile, inputFile);
+							fs.unlinkSync(outputFile);
+						} else {
+							throw e;
+						}
+					}
 				}
 				if (
 					result.wasAlreadyProcessed &&
