@@ -7,6 +7,7 @@
 	"manufacturer": "BIGTREETECH",
 	"id": "btt-octopus-11",
 	"firmwareBinaryName": "firmware-btt-octopus-11.bin",
+	"firmwareOptions": ["WANT_STEPPER_OPTIMIZED_BOTH_EDGE", "HIGH_PREC_STEP"],
 	"compileScript": "compile.sh",
 	"flashScript": "flash.sh",
 	"flashInstructions": "Flashing only works if the SD card slot on the Octopus is empty.",

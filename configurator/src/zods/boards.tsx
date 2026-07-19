@@ -346,6 +346,10 @@ export const Board = z
 		flashScript: z.string().optional(),
 		flashInstructions: z.string().optional(),
 		disableAutoFlash: z.boolean().optional(),
+		// Advanced Kalico menuconfig symbols (without the CONFIG_ prefix) to expose as
+		// opt-in firmware options during flashing. Availability, labels and help text are
+		// resolved from the installed Kalico branch's Kconfig at query time.
+		firmwareOptions: z.array(z.string()).optional(),
 		documentationLink: z.string().optional(),
 		hasQuirksFiles: z.boolean().optional(),
 		driverCount: z.number(),
@@ -499,6 +503,20 @@ export const BoardWithDetectionStatus = Board.and(
 	}),
 );
 
+/**
+ * An advanced firmware (menuconfig) option available for a board on the installed
+ * Kalico branch, as detected by scripts/firmware-options.py.
+ */
+export const FirmwareOption = z.object({
+	symbol: z.string(),
+	config: z.string(),
+	name: z.string(),
+	help: z.string().nullable(),
+	type: z.string(),
+	value: z.string(),
+	enabled: z.boolean(),
+});
+
 export const AutoFlashableBoard = z.object({
 	id: z.string(),
 	disableAutoFlash: z.literal(false).optional(),
@@ -531,6 +549,7 @@ export type BoardWithDetectionStatus = z.infer<typeof BoardWithDetectionStatus>;
 export type Toolboard = z.infer<typeof Toolboard>;
 export type ToolboardWithDetectionStatus = z.infer<typeof ToolboardWithDetectionStatus>;
 export type AutoFlashableBoard = z.infer<typeof AutoFlashableBoard>;
+export type FirmwareOption = z.infer<typeof FirmwareOption>;
 export type PinMap = z.infer<typeof PinMap>;
 export type ToolboardPinMap = z.infer<typeof ToolboardPinMap>;
 export type ControlBoardPinMap = z.infer<typeof ControlBoardPinMap>;

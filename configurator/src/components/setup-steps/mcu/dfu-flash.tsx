@@ -11,6 +11,7 @@ interface DFUFlashProps {
 	board: Board;
 	toolhead?: ToolheadHelper<any> | null;
 	onSuccess?: () => void;
+	firmwareOptions?: string[];
 }
 
 export const DFUFlash: React.FC<DFUFlashProps> = (props) => {
@@ -26,12 +27,12 @@ export const DFUFlash: React.FC<DFUFlashProps> = (props) => {
 	const startFlash = useCallback(async () => {
 		setIsFlashing(true);
 		flashDfuMutation.mutate(
-			{ boardPath: props.board.path, toolhead: props.toolhead?.serialize() },
+			{ boardPath: props.board.path, toolhead: props.toolhead?.serialize(), firmwareOptions: props.firmwareOptions },
 			{
 				onSettled: () => setIsFlashing(false),
 			},
 		);
-	}, [flashDfuMutation, props.board.path, props.toolhead]);
+	}, [flashDfuMutation, props.board.path, props.toolhead, props.firmwareOptions]);
 
 	const dfuError = error ? <ErrorMessage>{error.message}</ErrorMessage> : null;
 

@@ -1,6 +1,7 @@
 import { CheckCircleIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { trpc } from '@/helpers/trpc';
+import { FirmwareOptionsPanel } from '@/components/setup-steps/mcu/firmware-options';
 import { Button } from '@/components/common/button';
 import { MutationStatus } from '@/components/common/mutation-status';
 import { InfoMessage } from '@/components/common/info-message';
@@ -49,6 +50,27 @@ export const MCUFlashing = (props: MCUStepScreenProps) => {
 	});
 	const flashViaPath = trpc.mcu.flashViaPath.useMutation({ onSuccess: () => setForceReflash(false) });
 
+	// Advanced Kalico firmware options exposed by this board, detected from the installed branch.
+	const firmwareOptions = trpc.mcu.firmwareOptions.useQuery(
+		{ boardPath: selectedBoardToFlash?.path ?? '', toolhead: toolhead?.serialize() },
+		{
+			enabled: selectedBoardToFlash != null,
+			refetchOnWindowFocus: false,
+		},
+	);
+	// null = not yet seeded from detection; once seeded it holds the user's enabled symbols.
+	const [selectedFirmwareOptions, setSelectedFirmwareOptions] = useState<string[] | null>(null);
+	useEffect(() => {
+		if (selectedFirmwareOptions === null && firmwareOptions.data != null) {
+			setSelectedFirmwareOptions(firmwareOptions.data.filter((o) => o.enabled).map((o) => o.symbol));
+		}
+	}, [firmwareOptions.data, selectedFirmwareOptions]);
+	// Reset seeding when switching boards so a different board re-seeds from its own detection.
+	useEffect(() => {
+		setSelectedFirmwareOptions(null);
+	}, [selectedBoardToFlash?.path]);
+	const firmwareOptionsArg = selectedFirmwareOptions ?? undefined;
+
 	const reflash = useCallback(() => {
 		setFlashStrategy(null);
 		setForceReflash(true);
@@ -73,8 +95,12 @@ export const MCUFlashing = (props: MCUStepScreenProps) => {
 	const onFlashViaPath = useCallback(() => {
 		if (selectedBoard == null) return;
 		setFlashStrategy('path');
-		flashViaPath.mutate({ boardPath: selectedBoard.path, toolhead: toolhead?.serialize() });
-	}, [flashViaPath, selectedBoard, toolhead]);
+		flashViaPath.mutate({
+			boardPath: selectedBoard.path,
+			toolhead: toolhead?.serialize(),
+			firmwareOptions: firmwareOptionsArg,
+		});
+	}, [flashViaPath, selectedBoard, toolhead, firmwareOptionsArg]);
 
 	let content = null;
 	if (boardVersion.error && !forceReflash) {
@@ -253,7 +279,12 @@ export const MCUFlashing = (props: MCUStepScreenProps) => {
 								if (selectedBoard == null) return;
 								setFlashStrategy('path');
 								setFlashPath(ub);
-								flashViaPath.mutate({ boardPath: selectedBoard.path, flashPath: ub, toolhead: toolhead?.serialize() });
+								flashViaPath.mutate({
+									boardPath: selectedBoard.path,
+									flashPath: ub,
+									toolhead: toolhead?.serialize(),
+									firmwareOptions: firmwareOptionsArg,
+								});
 							},
 							title: ub,
 						}))}
@@ -269,6 +300,12 @@ export const MCUFlashing = (props: MCUStepScreenProps) => {
 				<h3 className="text-xl font-medium text-zinc-900 dark:text-zinc-100">
 					How do you want to flash your {selectedBoard?.name}?
 				</h3>
+				<FirmwareOptionsPanel
+					options={firmwareOptions.data ?? []}
+					selected={selectedFirmwareOptions ?? []}
+					onChange={setSelectedFirmwareOptions}
+					isLoading={firmwareOptions.isLoading && selectedBoard?.firmwareOptions != null}
+				/>
 				<div className="grid grid-cols-1 gap-4 sm:grid-cols-1 xl:grid-cols-2">
 					{path}
 					{dfu}
@@ -289,11 +326,23 @@ export const MCUFlashing = (props: MCUStepScreenProps) => {
 		} else {
 			switch (flashStrategy) {
 				case 'dfu':
-					content = <DFUFlash board={selectedBoard} onSuccess={() => setForceReflash(false)} toolhead={toolhead} />;
+					content = (
+						<DFUFlash
+							board={selectedBoard}
+							onSuccess={() => setForceReflash(false)}
+							toolhead={toolhead}
+							firmwareOptions={firmwareOptionsArg}
+						/>
+					);
 					break;
 				case 'sdcard':
 					content = (
-						<SDCardFlashing board={selectedBoard} onSuccess={() => setForceReflash(false)} toolhead={toolhead} />
+						<SDCardFlashing
+							board={selectedBoard}
+							onSuccess={() => setForceReflash(false)}
+							toolhead={toolhead}
+							firmwareOptions={firmwareOptionsArg}
+						/>
 					);
 					break;
 				case 'path':

@@ -7,6 +7,7 @@
 	"manufacturer": "LDO",
 	"id": "ldo-leviathan-12",
 	"firmwareBinaryName": "firmware-ldo-leviathan-12.bin",
+	"firmwareOptions": ["WANT_STEPPER_OPTIMIZED_BOTH_EDGE", "HIGH_PREC_STEP"],
 	"compileScript": "compile.sh",
 	"flashScript": "flash.sh",
 	"driverCount": 7,

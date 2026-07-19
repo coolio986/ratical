@@ -67,6 +67,13 @@
 			"description": "Whether to disable automatic flashing of this board",
 			"type": "boolean"
 		},
+		"firmwareOptions": {
+			"description": "Advanced Kalico menuconfig symbols (without the CONFIG_ prefix) to expose as opt-in firmware options during flashing. Availability, labels and help text are resolved from the installed Kalico branch's Kconfig at query time; symbols whose dependencies are not met for this board are hidden.",
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
+		},
 		"hasQuirksFiles": {
 			"description": "Whether this board has a quirks file that needs to be loaded (must be called quirks.cfg and quirks-toolboard.cfg)",
 			"type": "boolean"

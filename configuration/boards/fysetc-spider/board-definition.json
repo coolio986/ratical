@@ -5,6 +5,7 @@
 	"manufacturer": "Fysetc",
 	"id": "fysetc-spider",
 	"firmwareBinaryName": "firmware-fysetc-spider.bin",
+	"firmwareOptions": ["WANT_STEPPER_OPTIMIZED_BOTH_EDGE", "HIGH_PREC_STEP"],
 	"compileScript": "compile.sh",
 	"flashScript": "flash.sh",
 	"driverCount": 8,

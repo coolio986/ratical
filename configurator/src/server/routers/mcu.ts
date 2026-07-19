@@ -10,9 +10,11 @@ import {
 	BoardID,
 	BoardPath,
 	BoardWithDetectionStatus,
+	FirmwareOption,
 	ToolboardWithDetectionStatus,
 	reversePinLookup,
 } from '@/zods/boards';
+import { appendFile } from 'fs/promises';
 import { middleware, publicProcedure, router } from '@/server/trpc';
 import path from 'path';
 import { glob } from 'glob';
@@ -85,6 +87,7 @@ export const compileFirmware = async <T extends boolean>(
 	board: Board,
 	toolhead?: ToolheadHelper<any> | null,
 	skipCompile?: T,
+	selectedFirmwareOptions?: string[] | null,
 ): Promise<T extends true ? string : Awaited<ReturnType<typeof runSudoScript>>> => {
 	let compileResult = null;
 	const environment = serverSchema.parse(process.env);
@@ -97,6 +100,18 @@ export const compileFirmware = async <T extends boolean>(
 				/CONFIG_USB_SERIAL_NUMBER=".+"/g,
 				`CONFIG_USB_SERIAL_NUMBER="${getBoardChipId(board, toolhead)}"`,
 			);
+		}
+		// Apply the user's advanced firmware-option choices over the board's exposed
+		// allowlist. Everything the board exposes is written explicitly (enabled or
+		// disabled) so intent survives `make olddefconfig`; anything not exposed keeps
+		// the board default. Appended lines win over the base config on olddefconfig.
+		if (board.firmwareOptions?.length) {
+			const selected = new Set((selectedFirmwareOptions ?? []).map((s) => s.replace(/^CONFIG_/, '')));
+			const lines = board.firmwareOptions.map((symbol) => {
+				const name = symbol.replace(/^CONFIG_/, '');
+				return selected.has(name) ? `CONFIG_${name}=y` : `# CONFIG_${name} is not set`;
+			});
+			await appendFile(dest, '\n' + lines.join('\n') + '\n');
 		}
 		if (skipCompile) {
 			return readFileSync(dest).toString() as T extends true ? string : Awaited<ReturnType<typeof runSudoScript>>;
@@ -317,11 +332,46 @@ export const mcuRouter = router({
 			const versionRegEx = /Version:\s(v\d+\.\d+\.\d+-\d+-\w+)/;
 			return version.stdout.match(versionRegEx)?.[1];
 		}),
+	firmwareOptions: mcuProcedure
+		.input(inputSchema)
+		.meta({
+			boardRequired: true,
+		})
+		.output(z.array(FirmwareOption))
+		.query(async ({ ctx, input }) => {
+			if (ctx.board == null) {
+				throw new TRPCError({
+					code: 'PRECONDITION_FAILED',
+					message: `No supported board exists for the path ${input.boardPath}`,
+				});
+			}
+			// The board opts in by listing which advanced symbols to expose.
+			if (!ctx.board.firmwareOptions?.length) {
+				return [];
+			}
+			const environment = serverSchema.parse(process.env);
+			const scriptRoot = getScriptRoot();
+			const baseConfig = path.join(ctx.board.path, 'firmware.config');
+			try {
+				const { stdout } = await promisify(exec)(
+					`${path.join(environment.KLIPPER_ENV, 'bin', 'python')} ${path.join(scriptRoot, 'firmware-options.py')} ${baseConfig} --only ${ctx.board.firmwareOptions.join(',')}`,
+					{ env: { KLIPPER_DIR: environment.KLIPPER_DIR, NODE_ENV: process.env.NODE_ENV } },
+				);
+				return z.array(FirmwareOption).parse(JSON.parse(stdout));
+			} catch (e) {
+				throw new TRPCError({
+					code: 'INTERNAL_SERVER_ERROR',
+					message: `Could not detect firmware options for ${ctx.board.name}: ${e instanceof Error ? e.message : e}`,
+					cause: e,
+				});
+			}
+		}),
 	compile: mcuProcedure
 		.input(
 			z.object({
 				boardPath: z.string(),
 				toolhead: SerializedToolheadConfiguration.optional(),
+				firmwareOptions: z.array(z.string()).optional(),
 			}),
 		)
 		.meta({
@@ -334,7 +384,7 @@ export const mcuRouter = router({
 					message: `No supported board exists for the path ${input.boardPath}`,
 				});
 			}
-			await compileFirmware(ctx.board, ctx.toolhead);
+			await compileFirmware(ctx.board, ctx.toolhead, false, input.firmwareOptions);
 			return 'success';
 		}),
 	reversePinLookup: mcuProcedure
@@ -456,6 +506,7 @@ export const mcuRouter = router({
 				boardPath: z.string(),
 				flashPath: z.string().optional(),
 				toolhead: SerializedToolheadConfiguration.optional(),
+				firmwareOptions: z.array(z.string()).optional(),
 			}),
 		)
 		.meta({
@@ -480,7 +531,7 @@ export const mcuRouter = router({
 					message: `The path ${input.flashPath} does not exist.`,
 				});
 			}
-			await compileFirmware(ctx.board, ctx.toolhead);
+			await compileFirmware(ctx.board, ctx.toolhead, false, input.firmwareOptions);
 			let flashResult = null;
 			try {
 				const flashScript = path.join(
@@ -527,7 +578,7 @@ export const mcuRouter = router({
 			return false;
 		}),
 	dfuFlash: mcuProcedure
-		.input(inputSchema)
+		.input(inputSchema.extend({ firmwareOptions: z.array(z.string()).optional() }))
 		.meta({
 			boardRequired: true,
 		})
@@ -540,7 +591,7 @@ export const mcuRouter = router({
 				});
 			}
 			try {
-				await compileFirmware(ctx.board, ctx.toolhead);
+				await compileFirmware(ctx.board, ctx.toolhead, false, input.firmwareOptions);
 			} catch (e) {
 				const message = e instanceof Error ? e.message : e;
 				throw new TRPCError({

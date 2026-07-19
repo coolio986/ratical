@@ -24,6 +24,7 @@ interface SDCardFlashingProps {
 	board: Board;
 	toolhead?: ToolheadHelper<any> | null;
 	onSuccess?: () => void;
+	firmwareOptions?: string[];
 }
 
 export const SDCardFlashing: React.FC<SDCardFlashingProps> = (props) => {
@@ -71,7 +72,12 @@ export const SDCardFlashing: React.FC<SDCardFlashingProps> = (props) => {
 				onClick={
 					isFirmwareReady
 						? undefined
-						: () => compile.mutate({ boardPath: props.board.path, toolhead: props.toolhead?.serialize() })
+						: () =>
+								compile.mutate({
+									boardPath: props.board.path,
+									toolhead: props.toolhead?.serialize(),
+									firmwareOptions: props.firmwareOptions,
+								})
 				}
 				className="w-52 justify-center"
 				disabled={compile.isLoading && !isFirmwareReady}
