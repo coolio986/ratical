@@ -1,3 +1,4 @@
+/** mcu-preparation.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import React, { useCallback, useMemo } from 'react';
 import { trpc } from '@/helpers/trpc';
 import { usePrinterConfiguration } from '@/hooks/usePrinterConfiguration';

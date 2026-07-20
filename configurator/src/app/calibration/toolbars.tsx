@@ -1,3 +1,4 @@
+/** toolbars.tsx — Part of the /configure/calibration VAOC (camera nozzle-offset) UI. See docs/ARCHITECTURE.md §4. */
 import React, { useCallback, useMemo, useState } from 'react';
 import {
 	CameraIcon,

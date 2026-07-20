@@ -1,3 +1,4 @@
+/** debounce.ts — Internal helper/hook for the App-Router pages. See docs/ARCHITECTURE.md §4. */
 import { useRef, useCallback, useEffect } from 'react';
 
 export const useDebounce = <T extends Function>(fn: T, delay: number, refreshTimeout: boolean = false) => {

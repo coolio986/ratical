@@ -1,3 +1,4 @@
+/** live-gcode-response.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { useMoonraker } from '@/moonraker/hooks';
 import React, { useEffect, useState } from 'react';
 import { Card } from '@/components/common/card';

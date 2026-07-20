@@ -1,3 +1,4 @@
+/** dropdown-with-selector.tsx — A form component used by the configurator. See docs/ARCHITECTURE.md §4. */
 import React, { useEffect, useState } from 'react';
 import { RecoilValueReadOnly, useRecoilValue, constSelector } from 'recoil';
 import { Dropdown, DropdownProps } from '@/components/forms/dropdown';

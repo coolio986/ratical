@@ -1,3 +1,4 @@
+/** firmware-options.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 import { FirmwareOption } from '@/zods/boards';
 import { Spinner } from '@/components/common/spinner';

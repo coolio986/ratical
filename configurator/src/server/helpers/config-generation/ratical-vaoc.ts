@@ -1,3 +1,11 @@
+/**
+ * config-generation/ratical-vaoc.ts — VAOC (Visual Assisted Offset Calibration) types.
+ *
+ * Defines the control-point / calibration data model used by the /configure/calibration
+ * camera workflow to compute nozzle offsets. Kept next to the config generators because the
+ * resulting offsets feed the generated config / named_offsets. See the glossary entry for
+ * VAOC and docs/modifying/configurator.md.
+ */
 export type VAOCControlPoints = {
 	xcontrolpoint?: number;
 	ycontrolpoint?: number;

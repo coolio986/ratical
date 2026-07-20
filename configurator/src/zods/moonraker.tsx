@@ -1,3 +1,7 @@
+/**
+ * zods/moonraker.tsx — schemas for Moonraker interactions the app makes: DB items, update
+ * manager, component/extension registration. Contract for the moonraker/ client + routers.
+ */
 import { z } from 'zod';
 import { getLogger } from '@/server/helpers/logger';
 

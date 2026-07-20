@@ -1,4 +1,5 @@
 'use client';
+/** hooks.tsx — Moonraker API client (websocket/DB access). See docs/ARCHITECTURE.md §4. */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { UseMutationOptions, UseQueryOptions, useMutation, useQuery } from '@tanstack/react-query';
 import useWebSocket from 'react-use-websocket';

@@ -1,3 +1,7 @@
+/**
+ * data/endstops.ts — the endstop options the wizard offers (physical, sensorless, on
+ * toolboard, etc.). Drives which endstop config the generator emits per axis.
+ */
 import { z } from 'zod';
 import { Endstop } from '@/zods/hardware';
 import { PrinterAxis } from '@/zods/motion';

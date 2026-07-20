@@ -1,3 +1,4 @@
+/** types.ts — Moonraker API client (websocket/DB access). See docs/ARCHITECTURE.md §4. */
 import { VaocSettings } from '@/app/calibration/vaoc-settings-dialog';
 import { CameraStreamSettingValue } from '@/app/calibration/helpers';
 

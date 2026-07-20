@@ -1,3 +1,4 @@
+/** stream-settings-dialog.tsx — Part of the /configure/calibration VAOC (camera nozzle-offset) UI. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 import { Slider } from '@/components/forms/slider';
 import { useMoonrakerState } from '@/moonraker/hooks';

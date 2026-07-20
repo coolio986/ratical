@@ -1,3 +1,4 @@
+/** file-changes.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { SerializedPrinterConfiguration } from '@/zods/printer-configuration';
 import { trpc } from '@/utils/trpc';

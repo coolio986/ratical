@@ -1,4 +1,5 @@
 'use client';
+/** util.ts — Shared helper used across the app. See docs/ARCHITECTURE.md §4. */
 export const getHost = () => {
 	return process.env.NEXT_PUBLIC_KLIPPER_HOSTNAME != null && process.env.NEXT_PUBLIC_KLIPPER_HOSTNAME.trim() != ''
 		? process.env.NEXT_PUBLIC_KLIPPER_HOSTNAME

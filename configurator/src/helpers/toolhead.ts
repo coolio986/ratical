@@ -1,3 +1,4 @@
+/** toolhead.ts — Shared helper used across the app. See docs/ARCHITECTURE.md §4. */
 import { serializeToolheadConfiguration } from '@/utils/serialization';
 import { PrinterAxis } from '@/zods/motion';
 import {

@@ -1,4 +1,5 @@
 'use client';
+/** template.tsx — Next.js App-Router module for the configurator UI. See docs/ARCHITECTURE.md §4. */
 
 import { useState, Fragment, Suspense } from 'react';
 import { Dialog, Transition } from '@headlessui/react';

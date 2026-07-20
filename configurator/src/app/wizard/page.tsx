@@ -1,3 +1,4 @@
+/** page.tsx — Part of the setup-wizard UI (the flow that generates Ratical.cfg). See docs/ARCHITECTURE.md §4. */
 import React, { use } from 'react';
 import { isConnectedToWifi } from '@/server/helpers/wpa-cli';
 import { getWirelessInterface } from '@/server/helpers/iw';

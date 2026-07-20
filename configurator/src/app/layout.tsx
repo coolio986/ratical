@@ -1,3 +1,4 @@
+/** layout.tsx — Next.js App-Router layout. See docs/ARCHITECTURE.md §4. */
 import { hasLastPrinterSettings } from '@/server/helpers/printer-settings';
 import { Redirecter } from '@/app/_hooks/navigation';
 import { twJoin } from 'tailwind-merge';

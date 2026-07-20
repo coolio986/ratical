@@ -1,3 +1,4 @@
+/** toggle.tsx — A form component used by the configurator. See docs/ARCHITECTURE.md §4. */
 import { Switch } from '@headlessui/react';
 import React from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';

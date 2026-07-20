@@ -1,3 +1,4 @@
+/** tailwind.config.ts — Configurator source module. See docs/ARCHITECTURE.md §4. */
 import defaultTheme from 'tailwindcss/defaultTheme';
 import { Config } from 'tailwindcss/types/config';
 

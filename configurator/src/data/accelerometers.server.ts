@@ -1,3 +1,8 @@
+/**
+ * data/accelerometers.server.ts — server-only accelerometer detection (shells out to probe
+ * what's actually connected). Kept separate from accelerometers.ts so the client bundle never
+ * imports child_process.
+ */
 import { execSync } from 'child_process';
 import { existsSync } from 'fs';
 

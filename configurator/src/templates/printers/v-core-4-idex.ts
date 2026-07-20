@@ -1,3 +1,12 @@
+/**
+ * templates/printers/v-core-4-idex.ts — config generator for the 'v-core-4-idex' printer.
+ *
+ * Exports `template(config, helper)` returning the text of the generated `Ratical.cfg`
+ * for this model. A printer-definition.json points here via its `template` field. Edit
+ * the `helper.render*()` calls / [include] lines to change what this model emits.
+ * Adding a NEW template requires rebuilding the configurator (scripts/build-configurator.sh).
+ * See docs/modifying/printers.md.
+ */
 import { KlipperConfigHelper } from '@/server/helpers/klipper-config';
 import { PrinterConfiguration } from '@/zods/printer-configuration';
 import { maybeRenderBeaconOverrides } from '@/templates/helpers/beacon';

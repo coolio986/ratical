@@ -1,3 +1,4 @@
+/** server.test.ts — Test suite (vitest). See docs/modifying/configurator.md §3. */
 /* eslint-disable no-console */
 import {
 	deserializePartialPrinterConfiguration,

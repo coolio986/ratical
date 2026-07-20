@@ -1,3 +1,4 @@
+/** utils.ts — Shared helper used across the app. See docs/ARCHITECTURE.md §4. */
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 

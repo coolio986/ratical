@@ -1,4 +1,5 @@
 'use client';
+/** columns.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 
 import { ColumnDef } from '@tanstack/react-table';
 

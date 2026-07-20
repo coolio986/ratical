@@ -1,3 +1,8 @@
+/**
+ * routers/moonraker-extensions.ts — tRPC endpoints to register Moonraker-side extensions /
+ * components and wire them into `moonraker.conf`. Companion to klippy-extensions.ts for the
+ * Moonraker half of the stack.
+ */
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';

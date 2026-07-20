@@ -1,3 +1,11 @@
+/**
+ * routers/printer.ts — the tRPC endpoints behind the setup wizard.
+ *
+ * Discovers printers/hardware by globbing `$RATICAL_CONFIGURATION_PATH/{printers,boards,…}`
+ * for `*-definition.json` (this is where auto-discovery lives — see ARCHITECTURE.md §5),
+ * deserializes the user's selections into fully-resolved printer/toolhead objects, and drives
+ * config generation. Also reads the existing `printer.cfg` so a re-run resumes state.
+ */
 import { z } from 'zod';
 import { getLogger } from '@/server/helpers/logger';
 

@@ -1,3 +1,4 @@
+/** psd.ts — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import {
 	Observable,
 	switchMap,

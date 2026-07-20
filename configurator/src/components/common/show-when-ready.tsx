@@ -1,3 +1,4 @@
+/** show-when-ready.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { ErrorMessage } from '@/components/common/error-message';
 import { Spinner } from '@/components/common/spinner';
 import React from 'react';

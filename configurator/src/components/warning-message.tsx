@@ -1,3 +1,4 @@
+/** warning-message.tsx — React component for the configurator UI. See docs/ARCHITECTURE.md §4. */
 import { ExclamationCircleIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 import { Banner } from '@/components/common/banner';

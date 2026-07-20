@@ -1,4 +1,5 @@
 'use client';
+/** no-ssr.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { useIsClient } from '@/hooks/isClient';
 import dynamic from 'next/dynamic';
 import React, { lazy } from 'react';

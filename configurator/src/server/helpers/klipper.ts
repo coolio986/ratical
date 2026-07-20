@@ -1,3 +1,8 @@
+/**
+ * klipper.ts — helpers for talking to / inspecting the Klipper (Kalico) install:
+ * checkout state, service restart, and reading klippy-side status. Used by the routers and
+ * config flow. Paths come from KLIPPER_DIR / KLIPPER_ENV in the app .env.
+ */
 import { getLogger } from '@/server/helpers/logger';
 import { getErrorMessage } from '@/utils/exception-handling';
 import { MoonrakerPrinterState, MoonrakerPrinterStateErrorEnum, parseMoonrakerHTTPResponse } from '@/zods/moonraker';

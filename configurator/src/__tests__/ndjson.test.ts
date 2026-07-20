@@ -1,3 +1,4 @@
+/** ndjson.test.ts — Test suite (vitest). See docs/modifying/configurator.md §3. */
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 
 import { z } from 'zod';

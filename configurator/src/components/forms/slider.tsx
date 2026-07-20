@@ -1,3 +1,4 @@
+/** slider.tsx — A form component used by the configurator. See docs/ARCHITECTURE.md §4. */
 import { useState, useCallback } from 'react';
 import { useDebounce } from '@/app/_hooks/debounce';
 

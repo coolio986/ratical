@@ -1,4 +1,5 @@
 'use client';
+/** page.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 

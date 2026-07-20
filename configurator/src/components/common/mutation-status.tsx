@@ -1,4 +1,5 @@
 'use client';
+/** mutation-status.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { TRPCClientErrorLike } from '@trpc/client';
 import { UseMutationResult } from '@tanstack/react-query';
 import { AppRouter } from '@/server/routers';

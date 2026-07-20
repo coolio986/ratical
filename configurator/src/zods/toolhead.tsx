@@ -1,3 +1,8 @@
+/**
+ * zods/toolhead.tsx — schema for a single toolhead's configuration (extruder, hotend,
+ * toolboard, part/hotend fans, probe, X/Y endstops, per-carriage axis). IDEX/hybrid printers
+ * have several; config-generation/toolhead.ts renders each. See docs/modifying/printers.md.
+ */
 import { z } from 'zod';
 import { BoardID, Toolboard } from '@/zods/boards';
 import {

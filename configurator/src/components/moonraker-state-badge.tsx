@@ -1,4 +1,5 @@
 'use client';
+/** moonraker-state-badge.tsx — React component for the configurator UI. See docs/ARCHITECTURE.md §4. */
 
 import React from 'react';
 import { twJoin } from 'tailwind-merge';

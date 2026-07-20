@@ -1,3 +1,4 @@
+/** download.ts — Legacy Next.js pages/ API route. See docs/ARCHITECTURE.md §4. */
 import { NextApiRequest, NextApiResponse } from 'next';
 import { readFile, stat } from 'fs/promises';
 import { existsSync } from 'fs';

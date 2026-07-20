@@ -1,5 +1,6 @@
-// `app/page.tsx` is the UI for the `/` URL
 'use client';
+/** page.tsx — Next.js App-Router page (the `/` URL). See docs/ARCHITECTURE.md §4. */
+// `app/page.tsx` is the UI for the `/` URL
 
 import { twMerge } from 'tailwind-merge';
 import { Badge } from '@/components/common/badge';

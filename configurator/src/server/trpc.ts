@@ -1,3 +1,4 @@
+/** trpc.ts — Configurator server module. See docs/ARCHITECTURE.md §4. */
 import { initTRPC } from '@trpc/server';
 import { ToolheadGenerator } from '@/server/helpers/config-generation/toolhead';
 import { Board } from '@/zods/boards';

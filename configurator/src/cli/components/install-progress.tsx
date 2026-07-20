@@ -1,3 +1,4 @@
+/** install-progress.tsx — Part of the `ratical` CLI. See docs/ARCHITECTURE.md §4. */
 import { Signal, useSignal } from '@/app/_helpers/signal';
 import { TextProps, Static, Box, Text, Transform } from 'ink';
 import Spinner from 'ink-spinner';

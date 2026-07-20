@@ -1,4 +1,5 @@
 'use client';
+/** wifi-setup.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { CardSelector, SelectableCard } from '@/components/card-selector';
 import { Spinner } from '@/components/common/spinner';

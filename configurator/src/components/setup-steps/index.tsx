@@ -1,3 +1,4 @@
+/** index.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import React, { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 import { ToolheadHelper } from '@/helpers/toolhead';

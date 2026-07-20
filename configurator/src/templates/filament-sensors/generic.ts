@@ -1,3 +1,5 @@
+/** filament-sensors/generic.ts — config-fragment generator for a generic switch-type
+ *  filament sensor on a toolhead. Selected via the accessories data + wizard. */
 import { GetRequiredPinAliasesFn, RenderToolheadTemplateFn } from '@/templates/template-api';
 import { z } from 'zod';
 

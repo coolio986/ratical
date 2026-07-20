@@ -1,3 +1,4 @@
+/** belt-tension-comparison.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { computeMechanicalHealth, detectPeaks, pairPeaks } from '@/app/analysis/_worker/graph-comparison';
 import { MechanicalHealthResult, PeakPairingResult } from '@/app/analysis/macros/hooks';
 import { SequenceData } from '@/app/analysis/macros/[id]/recordings/[runId]/setup';

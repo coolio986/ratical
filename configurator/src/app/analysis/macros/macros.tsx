@@ -1,4 +1,5 @@
 'use client';
+/** macros.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { columns } from '@/app/analysis/macros/columns';
 import { DataTable } from '@/app/analysis/macros/components/data-table';
 import { trpc } from '@/helpers/trpc';

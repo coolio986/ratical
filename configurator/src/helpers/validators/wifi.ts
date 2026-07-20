@@ -1,3 +1,4 @@
+/** wifi.ts — Shared helper used across the app. See docs/ARCHITECTURE.md §4. */
 import { z } from 'zod';
 
 export const hostnameInput = z.object({

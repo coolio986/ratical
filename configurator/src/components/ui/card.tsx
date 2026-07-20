@@ -1,3 +1,4 @@
+/** card.tsx — Design-system UI primitive (shared, presentational). See docs/ARCHITECTURE.md §4. */
 import * as React from 'react';
 
 import { cn } from '@/helpers/utils';

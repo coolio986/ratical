@@ -1,3 +1,4 @@
+/** printer-state-header.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { twJoin, twMerge } from 'tailwind-merge';
 import { useIsClient } from '@/hooks/isClient';
 import { Badge } from '@/components/common/badge';

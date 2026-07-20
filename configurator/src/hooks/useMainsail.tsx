@@ -1,3 +1,4 @@
+/** useMainsail.tsx — Custom React hook (client-side data/state). See docs/ARCHITECTURE.md §4. */
 import { useCallback } from 'react';
 import { useMoonraker, useNamespacedItemMutation, useNamespacedItemQuery } from '@/moonraker/hooks';
 import { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';

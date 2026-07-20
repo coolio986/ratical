@@ -1,3 +1,4 @@
+/** math.ts — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 export const sumArray = (arr: number[]) => arr.reduce((a, b) => a + b, 0);
 export const meanArray = (arr: number[]) => sumArray(arr) / arr.length;
 export const maxArrayIndex = (arr: number[]) => arr.reduce((iMax, x, i, arr) => (x > arr[iMax] ? i : iMax), 0);

@@ -1,3 +1,4 @@
+/** wpa-cli.tsx — Backend helper for the configurator server. See docs/ARCHITECTURE.md §4. */
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import { getWirelessInterface } from '@/server/helpers/iw';

@@ -1,3 +1,8 @@
+/**
+ * zods/printer.tsx — the runtime contract for printer definitions. `printer-definition.json`
+ * is validated against these schemas (sizes, speedLimits, bedMargin, defaults, template…).
+ * Add a field here AND in printer-definition.schema.json. See docs/modifying/printers.md.
+ */
 import { z } from 'zod';
 import { serverSchema } from '@/env/schema.mjs';
 import path from 'path';

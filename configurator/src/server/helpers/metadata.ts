@@ -1,3 +1,14 @@
+/**
+ * metadata.ts — reads and validates the on-disk hardware definitions.
+ *
+ * Parses the `configuration/` payload the wizard offers: cfg-style metadata blocks and the
+ * JSON `*-definition.json` files (boards, printers) that are glob-discovered under
+ * `$RATICAL_CONFIGURATION_PATH`. Key exports: `parseMetadata` (validate a cfg/JSON against a
+ * Zod schema), `parseBoardPinConfig` (read a board's pin map), and the
+ * `getJsonMetaDirectoryName` / `isJsonMetaDirectory` helpers that route a hardware type to
+ * its directory. A definition that fails its schema is skipped — see docs/modifying/boards.md
+ * and docs/modifying/printers.md.
+ */
 import { exec, execSync } from 'child_process';
 import { createReadStream, existsSync, readFileSync } from 'fs';
 import path from 'path';

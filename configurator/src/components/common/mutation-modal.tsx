@@ -1,4 +1,5 @@
 'use client';
+/** mutation-modal.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';

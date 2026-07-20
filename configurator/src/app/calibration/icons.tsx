@@ -1,3 +1,4 @@
+/** icons.tsx — Part of the /configure/calibration VAOC (camera nozzle-offset) UI. See docs/ARCHITECTURE.md §4. */
 export const EnterFullscreenIcon = (props: React.SVGProps<SVGSVGElement>) => (
 	<svg {...props} viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path

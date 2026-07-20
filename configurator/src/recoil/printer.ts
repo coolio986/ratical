@@ -1,3 +1,4 @@
+/** printer.ts — Recoil state (atoms/selectors) for the configurator UI. See docs/ARCHITECTURE.md §4. */
 import { ReadAtomInterface, syncEffect } from 'recoil-sync';
 import { PrinterDefinitionWithResolvedToolheads } from '@/zods/printer';
 import { trpcClient } from '@/helpers/trpc';

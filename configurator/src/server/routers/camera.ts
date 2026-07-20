@@ -1,3 +1,8 @@
+/**
+ * routers/camera.ts — tRPC endpoints for the VAOC camera used by /configure/calibration:
+ * stream/snapshot access and camera settings (flip, pixelPrMm, nozzle diameter). Defaults are
+ * seeded into the Moonraker DB by installer step 65. See the VAOC glossary entry.
+ */
 // TODO
 // command: /home/pi/crowsnest/bin/camera-streamer/camera-streamer --http-port=8080 --camera-path=/dev/video0 --camera-format=RG10 --camera-height=2464 --camera-width=3280 --camera-video.height=1232 --camera-fps=30 --camera-auto_reconnect=1
 // Libcamera: /home/pi/crowsnest/bin/camera-streamer/camera-streamer --http-port=8080 --camera-path=/base/soc/i2c0mux/i2c@1/imx219@10 --camera-type=libcamera --camera-snapshot.height=1080 --camera-width=1472 --camera-height=1088 --camera-fps=30 --camera-auto_reconnect=1 --camera-height=2464 --camera-width=3280 --camera-video.height=1232 --camera snapshot.height=1232 --camera-format=YUYV

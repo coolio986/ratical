@@ -1,3 +1,4 @@
+/** toolhead.ts — Recoil state (atoms/selectors) for the configurator UI. See docs/ARCHITECTURE.md §4. */
 import { atomFamily, DefaultValue, selector, selectorFamily, noWait, waitForAll } from 'recoil';
 import { ReadAtomInterface, syncEffect, WriteAtomInterface } from 'recoil-sync';
 import { z } from 'zod';

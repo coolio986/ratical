@@ -1,3 +1,4 @@
+/** colors.ts — Internal helper/hook for the App-Router pages. See docs/ARCHITECTURE.md §4. */
 import resolveConfig from 'tailwindcss/resolveConfig';
 import tailwindConfig from '@/tailwind.config';
 const fullConfig = resolveConfig(tailwindConfig);

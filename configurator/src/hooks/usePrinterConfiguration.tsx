@@ -1,4 +1,5 @@
 'use client';
+/** usePrinterConfiguration.tsx — Custom React hook (client-side data/state). See docs/ARCHITECTURE.md §4. */
 
 import { atom, selector, useRecoilValue, useRecoilState, waitForAll, noWait, DefaultValue } from 'recoil';
 import { z } from 'zod';

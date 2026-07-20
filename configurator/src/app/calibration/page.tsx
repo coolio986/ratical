@@ -1,4 +1,5 @@
 'use client';
+/** page.tsx — Part of the /configure/calibration VAOC (camera nozzle-offset) UI. See docs/ARCHITECTURE.md §4. */
 
 import { FullLoadScreen } from '@/components/common/full-load-screen';
 import { NoSSR } from '@/components/common/no-ssr';

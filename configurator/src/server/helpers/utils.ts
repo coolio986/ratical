@@ -1,3 +1,4 @@
+/** utils.ts — Backend helper for the configurator server. See docs/ARCHITECTURE.md §4. */
 import { serverSchema } from '@/env/schema.mjs';
 import { existsSync, readFileSync } from 'node:fs';
 import dotenv from 'dotenv';

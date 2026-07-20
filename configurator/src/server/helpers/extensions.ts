@@ -1,3 +1,10 @@
+/**
+ * extensions.ts — register + symlink klippy / moonraker extensions.
+ *
+ * Backs the `ratical extensions register|symlink` CLI and the installer's steps 30/80. A
+ * registered klippy module is symlinked into `klipper/klippy/extras` (or `.../kinematics`
+ * with `-k`) so Kalico loads it. See docs/modifying/macros-and-klippy-extensions.md.
+ */
 import { existsSync } from 'fs';
 import { symlink, appendFile, unlink } from 'fs/promises';
 import path from 'path';

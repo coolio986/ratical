@@ -1,4 +1,6 @@
 #!/usr/bin/env tsx
+/** generate-mock-update-logs.ts — dev script that emits fake update-log output so the
+ *  update-progress UI can be developed without running a real install. See docs/modifying/configurator.md §3. */
 /* eslint-disable no-console */
 
 /**

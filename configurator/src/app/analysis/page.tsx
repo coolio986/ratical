@@ -1,3 +1,4 @@
+/** page.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 import { Analysis } from '@/app/analysis/analysis';
 import { NoSSR } from '@/components/common/no-ssr';

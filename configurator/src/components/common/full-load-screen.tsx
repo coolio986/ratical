@@ -1,3 +1,4 @@
+/** full-load-screen.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { Spinner } from '@/components/common/spinner';
 import { twJoin } from 'tailwind-merge';
 

@@ -1,3 +1,5 @@
+/** chamber-air-filters/generic.ts — config-fragment generator for a generic chamber air
+ *  filter (renders its [fan_generic]/pins). Selected via the accessories data + wizard. */
 import { GetRequiredPinAliasesFn, RenderTemplateFn } from '@/templates/template-api';
 
 // TODO: Use templateOptions to allow different pin configurations (2p/4p fans), etc.

@@ -1,3 +1,8 @@
+/**
+ * printer-settings.ts — read/write the user's current printer configuration state
+ * (the wizard's persisted selections) under KLIPPER_CONFIG_PATH, so a re-run of the wizard
+ * starts from what's already installed rather than defaults.
+ */
 import { existsSync } from 'fs';
 import { serverSchema } from '@/env/schema.mjs';
 import { loadSerializedConfig, readSerializedConfig } from '@/server/routers/printer';

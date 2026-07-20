@@ -1,3 +1,7 @@
+/**
+ * routers/update-logs.ts — tRPC endpoints that stream install/update log output to the UI
+ * (the progress view shown while the installer or a compile/flash runs).
+ */
 import { z } from 'zod';
 import { readFile, stat } from 'fs/promises';
 import { existsSync } from 'fs';

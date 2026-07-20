@@ -1,3 +1,4 @@
+/** text-input.tsx — A form component used by the configurator. See docs/ARCHITECTURE.md §4. */
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { ExclamationCircleIcon } from '@heroicons/react/24/solid';
 import { Label } from '@radix-ui/react-label';

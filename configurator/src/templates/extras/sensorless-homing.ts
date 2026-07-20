@@ -1,3 +1,5 @@
+/** extras/sensorless-homing.ts — config-fragment generator for TMC sensorless homing
+ *  (StallGuard diag pins + tuning). Emitted when the user picks sensorless endstops. */
 import { KlipperConfigUtils } from '@/server/helpers/klipper-config';
 import { PrinterAxis } from '@/zods/motion';
 import { PrinterConfiguration } from '@/zods/printer-configuration';

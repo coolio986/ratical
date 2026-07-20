@@ -1,3 +1,4 @@
+/** index.ts — tRPC router (backend endpoints). See docs/ARCHITECTURE.md §4. */
 // src/server/router/index.ts
 import { statSync } from 'fs';
 

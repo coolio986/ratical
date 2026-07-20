@@ -1,3 +1,4 @@
+/** typography.tsx — Design-system UI primitive (shared, presentational). See docs/ARCHITECTURE.md §4. */
 import { cn, setDisplayName } from '@/helpers/utils';
 import React from 'react';
 

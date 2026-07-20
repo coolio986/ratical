@@ -1,3 +1,7 @@
+/**
+ * routers/wifi.ts — tRPC endpoints for Wi-Fi setup (scan networks, join) via wpa_cli / iw.
+ * Used by the first-run network step. Host-only; relies on the `iw`/`wpa-cli` helpers.
+ */
 import { promisify } from 'util';
 import { exec } from 'child_process';
 import { getWirelessInterface, scan } from '@/server/helpers/iw';

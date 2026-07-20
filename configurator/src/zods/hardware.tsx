@@ -1,3 +1,8 @@
+/**
+ * zods/hardware.tsx — schemas for the pluggable hardware parts the wizard composes from:
+ * extruders, hotends, fans, probes, filament sensors, chamber accessories, toolhead-alignment
+ * systems. These validate the fragment libraries under `configuration/` and the `data/` lists.
+ */
 import { z } from 'zod';
 import { serverSchema } from '@/env/schema.mjs';
 import { PrinterRailDefinition, Stepper } from '@/zods/motion';

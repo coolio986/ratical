@@ -1,4 +1,5 @@
 'use client';
+/** data-table-toolbar.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 
 import { Cross2Icon } from '@radix-ui/react-icons';
 import { ColumnDef, Table } from '@tanstack/react-table';

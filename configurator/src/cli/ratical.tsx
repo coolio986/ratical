@@ -1,3 +1,4 @@
+/** ratical.tsx — Part of the `ratical` CLI. See docs/ARCHITECTURE.md §4. */
 import { program } from '@/cli/commands';
 import { getLogger } from '@/cli/logger';
 import { loadEnvironment } from '@/cli/util';

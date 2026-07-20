@@ -1,4 +1,5 @@
 'use client';
+/** page.tsx — Part of the motion/kinematics configuration UI. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 import { Motion } from '@/app/motion/motion';
 import { Spinner } from '@/components/common/spinner';

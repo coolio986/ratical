@@ -55,12 +55,12 @@ cat <<EOF
     5) VAOC:  http://<printer-ip>/configure/calibration
        Analysis: http://<printer-ip>/configure/analysis
 
-  Re-publish OSS configurator UI (PC, not Pi):
-    BUILD_DIR=…/src/build ./scripts/publish-configurator-deployment.sh
+  Rebuild the configurator UI (dev PC, never on the Pi — 1GB OOMs):
+    scripts/build-configurator.sh    # then commit configurator/src/build + bin
 
   Health checks:
     sudo systemctl status klipper moonraker nginx ratical-ondemand
-    # must print nothing:
-    find ~/ratical-configurator/app/build -name 'scichart*.wasm'
+    # must print nothing (no stale SciChart in the committed build):
+    find ~/ratical/configurator/src/build -name 'scichart*.wasm'
 EOF
 

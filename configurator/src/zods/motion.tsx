@@ -1,3 +1,7 @@
+/**
+ * zods/motion.tsx — schemas for motion: kinematics, rails/steppers, drivers, currents,
+ * rotation distances, homing, and the basic/performance speed-limit profiles.
+ */
 import * as z from 'zod';
 import type { Board, Toolboard } from '@/zods/boards';
 export enum StepperVoltage {

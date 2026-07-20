@@ -1,3 +1,6 @@
+/** templates/template-api.ts — the shared types/generators every hardware-fragment template
+ *  (chamber filters, lighting, filament sensors, toolhead-alignment, extras) programs against:
+ *  RenderTemplateFn, GetRequiredPinAliasesFn, etc. See docs/modifying/printers.md. */
 import { KlipperConfigExtrasGenerator, KlipperConfigUtils } from '@/server/helpers/klipper-config';
 import { getLogger } from '@/server/helpers/logger';
 import { getJsonMetaDirectoryName, parseBoardPinConfig } from '@/server/helpers/metadata';

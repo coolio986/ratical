@@ -1,3 +1,4 @@
+/** update-logs.test.ts — Test suite (vitest). See docs/modifying/configurator.md §3. */
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { readFile, writeFile, mkdir, rm } from 'fs/promises';
 import { existsSync } from 'fs';

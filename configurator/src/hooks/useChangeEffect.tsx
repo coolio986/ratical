@@ -1,3 +1,4 @@
+/** useChangeEffect.tsx — Custom React hook (client-side data/state). See docs/ARCHITECTURE.md §4. */
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const useChangeEffect = (deps: unknown[], clearAfter?: number, resetTimeoutOnChange: boolean = false) => {

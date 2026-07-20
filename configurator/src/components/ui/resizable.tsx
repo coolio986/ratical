@@ -1,4 +1,5 @@
 'use client';
+/** resizable.tsx — Design-system UI primitive (shared, presentational). See docs/ARCHITECTURE.md §4. */
 
 import { DragHandleDots2Icon } from '@radix-ui/react-icons';
 import * as ResizablePrimitive from 'react-resizable-panels';

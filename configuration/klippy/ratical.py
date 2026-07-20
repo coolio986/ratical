@@ -5,6 +5,27 @@
 # Copyright (C) 2025 Tom Glastonbury <t@tg73.net>
 #
 # This file may be distributed under the terms of the GNU GPLv3 license.
+#
+# ---------------------------------------------------------------------------------------
+# OVERVIEW (Ratical maintainers)
+# This is the catch-all `[ratical]` klippy object — the host-side glue behind many macros.
+# It is loaded via `load_config()` (bottom of file) and registers, among others:
+#   HELLO_RATICAL, RATICAL_LOG, CONSOLE_ECHO         diagnostics / logging
+#   PROCESS_GCODE_FILE, ALLOW_UNKNOWN_GCODE_GENERATOR, BYPASS_GCODE_PROCESSING
+#                                                    slicer/gcode pre-processing hooks
+#   CACHE_IS_GRAPH_FILES, SHOW_IS_GRAPH_FILES        input-shaper graph caching for /analysis
+#   _MOVE_TO_SAFE_Z_HOME, SET_ZERO_REFERENCE_POSITION, BEACON_PROBE_CLEAN,
+#   _BEACON_CHECK_DIRECTIONAL_REPEATABILITY, _CHECK_BED_MESH_PROFILE_EXISTS
+#                                                    Beacon / bed-mesh helpers
+#   _CAMERA_SNAPSHOT                                 VAOC camera capture
+# `BeaconProbingRegions` (namedtuple below) is the geometry model shared with beacon_mesh.py.
+# `get_status()` exposes state to macros/UI. Threaded downloads use ThreadPoolExecutor.
+#
+# HEADS UP: this module touches Kalico core internals (bed_mesh, toolhead, gcode_move). When
+# the Kalico branch moves, `steps/36-kalico-compat.sh` re-applies compatibility patches here
+# (e.g. the ZMesh signature). Run `scripts/check-klippy-api.py` after edits. See
+# docs/modifying/macros-and-klippy-extensions.md.
+# ---------------------------------------------------------------------------------------
 
 import os, logging, glob, traceback, inspect, re, time
 import json, subprocess, pathlib, random, math

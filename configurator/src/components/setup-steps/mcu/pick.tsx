@@ -1,3 +1,4 @@
+/** pick.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import React, { Fragment, useCallback } from 'react';
 import { CardSelector } from '@/components/card-selector';
 import { StepNavButton, StepNavButtons } from '@/components/step-nav-buttons';

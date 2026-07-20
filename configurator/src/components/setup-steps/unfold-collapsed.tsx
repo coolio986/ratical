@@ -1,3 +1,4 @@
+/** unfold-collapsed.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import { getCollapsedLinesCountBetween, HunkData } from 'react-diff-view';
 import Unfold from '@/components/setup-steps/unfold';
 

@@ -1,8 +1,12 @@
-# Support for "neopixel" leds
+# VAOC camera LED (a trimmed "neopixel" driver)
 #
 # Copyright (C) 2019-2022  Kevin O'Connor <kevin@koconnor.net>
 #
 # This file may be distributed under the terms of the GNU GPLv3 license.
+#
+# Ratical note: adapted from Klipper's neopixel.py to drive the ring light used by VAOC
+# visual calibration (see the /configure/calibration page). It is EXPERIMENTAL and, unlike
+# the other extensions, is NOT bulk-registered by steps/80 — it is registered on demand.
 import logging
 
 BACKGROUND_PRIORITY_CLOCK = 0x7fffffff00000000

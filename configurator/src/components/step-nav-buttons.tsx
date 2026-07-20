@@ -1,4 +1,5 @@
 'use client';
+/** step-nav-buttons.tsx — React component for the configurator UI. See docs/ARCHITECTURE.md §4. */
 import { PlayIcon, ForwardIcon } from '@heroicons/react/24/outline';
 import React from 'react';
 import { Button } from '@/components/common/button';

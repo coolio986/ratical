@@ -1,3 +1,7 @@
+/**
+ * cli/commands/development.tsx — `ratical` developer/maintenance subcommands (local dev
+ * helpers). Not part of the normal print flow.
+ */
 import { Command } from 'commander';
 import { constructSignalShell, ensureSudo, loadEnvironment, renderError } from '@/cli/util';
 import { getLogger } from '@/cli/logger';

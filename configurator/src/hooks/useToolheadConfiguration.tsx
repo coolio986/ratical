@@ -1,4 +1,5 @@
 'use client';
+/** useToolheadConfiguration.tsx — Custom React hook (client-side data/state). See docs/ARCHITECTURE.md §4. */
 
 import { ToolheadHelper } from '@/helpers/toolhead';
 import { deserializeStepper, serializePartialToolheadConfiguration } from '@/utils/serialization';

@@ -1,4 +1,5 @@
 'use client';
+/** motion.tsx — Part of the motion/kinematics configuration UI. See docs/ARCHITECTURE.md §4. */
 import { AnimatedContainer } from '@/components/common/animated-container';
 import { Button } from '@/components/common/button';
 import { Card } from '@/components/common/card';

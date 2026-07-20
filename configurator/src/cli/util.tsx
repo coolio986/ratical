@@ -1,3 +1,4 @@
+/** util.tsx — Part of the `ratical` CLI. See docs/ARCHITECTURE.md §4. */
 import { $, chalk, echo, path, ProcessPromise, Shell } from 'zx';
 import { Container } from '@/cli/components/container';
 import { APIResult, Status } from '@/cli/components/status';

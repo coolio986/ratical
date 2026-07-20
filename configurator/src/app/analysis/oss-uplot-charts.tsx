@@ -1,4 +1,5 @@
 'use client';
+/** oss-uplot-charts.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 
 import React, { useEffect, useRef } from 'react';
 import uPlot, { AlignedData, Options } from 'uplot';

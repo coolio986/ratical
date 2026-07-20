@@ -1,3 +1,4 @@
+/** periodogram.ts — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { signal as tfSignal, Tensor1D, sum, pow, div, mean, sub, tidy } from '@tensorflow/tfjs-core';
 import { PSD } from '@/zods/analysis';
 import { shaperDefaults } from '@/app/analysis/_worker/input-shaper';

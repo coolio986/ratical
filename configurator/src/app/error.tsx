@@ -1,4 +1,5 @@
 'use client';
+/** error.tsx — Next.js App-Router module for the configurator UI. See docs/ARCHITECTURE.md §4. */
 
 import { Button } from '@/components/common/button';
 import { Card } from '@/components/common/card';

@@ -1,3 +1,4 @@
+/** input-shapers.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { getLogger } from '@/app/_helpers/logger';
 import {
 	InputShaperWorker,

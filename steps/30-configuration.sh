@@ -67,6 +67,8 @@ fi
 # literally named '*.rules' (unexpanded glob) instead of per-board rules, so /dev/Ratical/*
 # and /dev/<board> never appear (breaks flashing + MCU serial paths). Install them right.
 report "Installing board udev rules (fixes bundled install_udev_rules bug)"
+# Quoted on purpose: deletes the file LITERALLY named '*.rules' (the artifact the bundled
+# bug leaves behind), NOT every *.rules file. Do not "fix" this to an unquoted glob.
 sudo rm -f "/etc/udev/rules.d/*.rules"
 BOARDS_DIR="$(readlink -f "${RATICAL_CFG_DIR}")/boards"
 if [[ -d "${BOARDS_DIR}" ]]; then

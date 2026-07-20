@@ -1,4 +1,5 @@
 'use client';
+/** background-beams.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 import { motion } from 'framer-motion';
 import { twJoin } from 'tailwind-merge';

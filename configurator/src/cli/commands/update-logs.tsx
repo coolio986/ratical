@@ -1,3 +1,7 @@
+/**
+ * cli/commands/update-logs.tsx — `ratical` subcommand that tails/formats install & update
+ * logs (the CLI side of routers/update-logs.ts).
+ */
 import { Command } from 'commander';
 import { readFile, stat } from 'node:fs/promises';
 import { existsSync } from 'node:fs';

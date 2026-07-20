@@ -1,3 +1,4 @@
+/** focus-controls.tsx — Part of the /configure/calibration VAOC (camera nozzle-offset) UI. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
 import {

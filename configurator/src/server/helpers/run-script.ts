@@ -1,3 +1,8 @@
+/**
+ * run-script.ts — spawn bundled shell/python scripts (compile, flash, graph generation)
+ * and stream their output. The single choke point for the app shelling out, so environment
+ * (RATICAL_SCRIPT_DIR, KLIPPER_ENV) and error handling stay consistent.
+ */
 import { spawn } from 'child_process';
 import path from 'path';
 import { getScriptRoot } from '@/server/helpers/file-operations';

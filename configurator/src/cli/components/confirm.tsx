@@ -1,3 +1,4 @@
+/** confirm.tsx — Part of the `ratical` CLI. See docs/ARCHITECTURE.md §4. */
 import { Container } from '@/cli/components/container';
 import { ConfirmInput } from '@inkjs/ui';
 import { Box, render, Text } from 'ink';

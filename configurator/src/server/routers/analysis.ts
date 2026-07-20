@@ -1,3 +1,9 @@
+/**
+ * routers/analysis.ts — tRPC endpoints for the /configure/analysis (input-shaper /
+ * resonance) page. Kicks off measurement runs and returns the data the uPlot charts render.
+ * Backed by Klipper Linear Movement Analysis (installed by installer step 60). SciChart was
+ * removed for licensing — the OSS path is uPlot only.
+ */
 import { serverSchema } from '@/env/schema.mjs';
 import { publicProcedure, router } from '@/server/trpc';
 import {

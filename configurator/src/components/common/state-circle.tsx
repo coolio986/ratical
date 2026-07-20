@@ -1,3 +1,4 @@
+/** state-circle.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { cva, VariantProps } from 'class-variance-authority';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';

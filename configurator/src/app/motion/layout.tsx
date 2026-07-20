@@ -1,3 +1,4 @@
+/** layout.tsx — Part of the motion/kinematics configuration UI. See docs/ARCHITECTURE.md §4. */
 import { headers } from 'next/headers';
 
 export default function MotionLayout({ children }: { children: React.ReactNode }) {

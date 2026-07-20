@@ -1,4 +1,5 @@
 'use client';
+/** wizard-complete.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import React, { Fragment, useCallback, useMemo, useState } from 'react';
 import {
 	PrinterConfigurationState,

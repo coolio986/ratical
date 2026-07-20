@@ -1,3 +1,4 @@
+/** wifi.tsx — Shared helper used across the app. See docs/ARCHITECTURE.md §4. */
 import { Signal, SignalHigh, SignalLow, SignalMedium, SignalZero } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 

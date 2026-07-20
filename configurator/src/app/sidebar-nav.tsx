@@ -1,3 +1,4 @@
+/** sidebar-nav.tsx — Next.js App-Router module for the configurator UI. See docs/ARCHITECTURE.md §4. */
 import { ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { twMerge, twJoin } from 'tailwind-merge';

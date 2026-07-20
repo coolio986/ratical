@@ -1,3 +1,4 @@
+/** build.ts — Part of the `ratical` CLI. See docs/ARCHITECTURE.md §4. */
 import * as esbuild from 'esbuild';
 import path from 'node:path';
 import fs from 'node:fs';

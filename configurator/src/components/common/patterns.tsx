@@ -1,3 +1,4 @@
+/** patterns.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { useId } from 'react';
 import { BackgroundBeams } from '@/components/common/background-beams';
 

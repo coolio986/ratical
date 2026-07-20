@@ -1,4 +1,5 @@
 'use client';
+/** diff-modal.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 /* This example requires Tailwind CSS v2.0+ */
 import React, { Fragment, ReactElement, useCallback, useMemo, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';

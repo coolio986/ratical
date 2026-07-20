@@ -1,3 +1,4 @@
+/** graph-comparison.ts — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { PSD } from '@/zods/analysis';
 import { calculatePercentile, maxArrayIndex, pearsonCorrelation } from '@/app/analysis/math';
 

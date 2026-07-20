@@ -1,3 +1,4 @@
+/** board.ts — Shared helper used across the app. See docs/ARCHITECTURE.md §4. */
 import { Board } from '@/zods/boards';
 import { ToolheadHelper } from '@/helpers/toolhead';
 

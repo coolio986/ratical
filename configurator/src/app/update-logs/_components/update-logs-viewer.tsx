@@ -1,4 +1,5 @@
 'use client';
+/** update-logs-viewer.tsx — Next.js App-Router module for the configurator UI. See docs/ARCHITECTURE.md §4. */
 
 import React, { useState, Suspense, useMemo, useEffect, useRef } from 'react';
 import { trpc } from '@/utils/trpc';

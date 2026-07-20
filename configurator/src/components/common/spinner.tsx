@@ -1,3 +1,4 @@
+/** spinner.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { twMerge } from 'tailwind-merge';
 
 export const Spinner: React.FC<{ className?: string; noMargin?: boolean; strokeWidth?: number }> = (props) => {

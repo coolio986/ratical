@@ -1,3 +1,4 @@
+/** vertical-steps.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';
 import { StepScreen, StepScreenProps } from '@/hooks/useSteps';

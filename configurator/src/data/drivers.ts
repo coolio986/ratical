@@ -1,3 +1,8 @@
+/**
+ * data/drivers.ts — the registry of stepper drivers the wizard offers (TMC2209, TMC5160,
+ * etc.) with their capabilities/current limits. Add an entry here to make a new driver
+ * selectable; the generator emits the matching [tmc…] block. See docs/modifying/printers.md.
+ */
 import { z } from 'zod';
 import { Driver } from '@/zods/motion';
 

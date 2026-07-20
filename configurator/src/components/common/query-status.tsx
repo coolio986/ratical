@@ -1,4 +1,5 @@
 'use client';
+/** query-status.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { TRPCClientErrorLike } from '@trpc/client';
 import { UseTRPCQueryResult } from '@trpc/react-query/src/shared/hooks/types';
 import { AppRouter } from '@/server/routers';

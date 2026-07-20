@@ -1,3 +1,8 @@
+/**
+ * routers/klippy-extensions.ts — tRPC endpoints to list/register/symlink klippy extensions
+ * (the `configuration/klippy/*.py` modules) into the Kalico checkout. UI-facing counterpart
+ * of `helpers/extensions.ts`. See docs/modifying/macros-and-klippy-extensions.md.
+ */
 import { z } from 'zod';
 import { TRPCError } from '@trpc/server';
 import { existsSync, mkdirSync, writeFileSync, readFileSync } from 'fs';

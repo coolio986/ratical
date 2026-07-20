@@ -1,3 +1,4 @@
+/** container.tsx — Part of the `ratical` CLI. See docs/ARCHITECTURE.md §4. */
 import { Box } from 'ink';
 import React from 'react';
 

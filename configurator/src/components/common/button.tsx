@@ -1,4 +1,5 @@
 'use client';
+/** button.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import Link, { LinkProps } from 'next/link';
 import { twJoin, twMerge } from 'tailwind-merge';
 import React, { Fragment, forwardRef } from 'react';

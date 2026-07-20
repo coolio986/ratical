@@ -1,3 +1,4 @@
+/** fieldset.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { cva } from 'class-variance-authority';
 import React from 'react';
 

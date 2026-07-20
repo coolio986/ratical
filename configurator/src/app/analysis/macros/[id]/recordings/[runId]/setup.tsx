@@ -1,3 +1,4 @@
+/** setup.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { TWShadeableColorName } from '@/app/_helpers/colors';
 import { PSD } from '@/zods/analysis';
 

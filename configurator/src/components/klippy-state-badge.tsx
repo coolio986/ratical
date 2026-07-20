@@ -1,4 +1,5 @@
 'use client';
+/** klippy-state-badge.tsx — React component for the configurator UI. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { twJoin } from 'tailwind-merge';

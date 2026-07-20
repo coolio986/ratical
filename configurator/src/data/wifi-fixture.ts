@@ -1,3 +1,7 @@
+/**
+ * data/wifi-fixture.ts — a static fake Wi-Fi scan result used for development/testing of the
+ * network setup UI without real hardware. Not used in production scans (see routers/wifi.ts).
+ */
 export const wifiFixture = (showHidden: boolean) =>
 	[
 		{

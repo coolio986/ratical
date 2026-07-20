@@ -1,4 +1,5 @@
 'use client';
+/** toolheads.tsx — Part of the toolhead configuration UI. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 import { Spinner } from '@/components/common/spinner';
 import { ToolheadSettings } from '@/components/setup-steps/toolhead-settings';

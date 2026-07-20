@@ -1,3 +1,6 @@
+/** helpers/beacon.ts — shared template helper (`maybeRenderBeaconOverrides`) that emits the
+ *  Beacon probe overrides a printer template includes when the probe is a Beacon. See the
+ *  Beacon glossary entry and configuration/klippy/beacon_*.py. */
 import { PrinterConfiguration } from '@/zods/printer-configuration';
 
 type BeaconOverrides = {

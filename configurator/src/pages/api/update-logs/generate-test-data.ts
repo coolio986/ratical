@@ -1,3 +1,4 @@
+/** generate-test-data.ts — Legacy Next.js pages/ API route. See docs/ARCHITECTURE.md §4. */
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { execSync } from 'child_process';
 import path from 'path';

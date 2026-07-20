@@ -1,3 +1,4 @@
+/** banner.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 import { badgeBackgroundColorStyle, badgeBorderColorStyle, badgeTextColorStyle } from '@/components/common/badge';
 import { twJoin, twMerge } from 'tailwind-merge';

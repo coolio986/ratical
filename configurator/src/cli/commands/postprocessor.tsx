@@ -1,3 +1,11 @@
+/**
+ * cli/commands/postprocessor.tsx — the `ratical postprocess` command.
+ *
+ * Post-processes sliced G-code before/at print time: injects analysis metadata and handles
+ * IDEX specifics. Moonraker runs this on upload. Note the EXDEV guard: `--overwrite-input`
+ * writes a temp file in /tmp (tmpfs on Pi OS) then renames onto printer_data/gcodes (a
+ * different device), which fails `renameSync` cross-device — it falls back to copy+unlink.
+ */
 import { Command } from 'commander';
 import { Progress } from 'progress-stream';
 import {

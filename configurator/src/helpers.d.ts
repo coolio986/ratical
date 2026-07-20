@@ -1,3 +1,4 @@
+/** helpers.d.ts — Configurator source module. See docs/ARCHITECTURE.md §4. */
 type Unpacked<T> = T extends Array<infer U> ? U : T extends ReadonlyArray<infer U> ? U : T;
 
 // eslint-disable-next-line camelcase

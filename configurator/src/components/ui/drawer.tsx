@@ -1,4 +1,5 @@
 'use client';
+/** drawer.tsx — Design-system UI primitive (shared, presentational). See docs/ARCHITECTURE.md §4. */
 
 import * as React from 'react';
 import { Drawer as DrawerPrimitive } from 'vaul';

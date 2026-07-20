@@ -1,3 +1,8 @@
+/**
+ * data/accessories.ts — registries for optional accessories: filament sensors, chamber air
+ * filters, chamber lighting, and toolhead-alignment systems. Add an entry to surface it in
+ * the wizard; each maps to a fragment under `configuration/`.
+ */
 import { FilamentSensor, ChamberAirFilter, ChamberLighting, ToolheadAlignmentSystem } from '@/zods/hardware';
 import type { PartialPrinterConfiguration } from '@/zods/printer-configuration';
 import { PartialToolheadConfiguration } from '@/zods/toolhead';

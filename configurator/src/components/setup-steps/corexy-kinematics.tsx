@@ -1,4 +1,5 @@
 'use client';
+/** corexy-kinematics.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import React, { useCallback, useState } from 'react';
 import { atom, useSetRecoilState } from 'recoil';
 import { StepScreenProps } from '@/hooks/useSteps';

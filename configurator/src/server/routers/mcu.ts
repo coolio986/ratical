@@ -1,3 +1,11 @@
+/**
+ * routers/mcu.ts — the tRPC endpoints for control boards / toolboards (MCUs).
+ *
+ * Detects connected boards (via `/dev/<id>` udev symlinks + board-definition metadata),
+ * exposes compile/flash actions (running each board's `compile.sh`/`flash.sh`), and surfaces
+ * firmware options. Board metadata comes from `board-definition.json`; see
+ * docs/modifying/boards.md.
+ */
 import { ZodError, z } from 'zod';
 import fs, { existsSync, readFileSync } from 'fs';
 import { exec } from 'child_process';

@@ -33,6 +33,8 @@ git_ensure() {
   fi
 }
 
+# Advisory only — warns but does NOT abort. Steps drop to ${RK_USER} via sudo -u where
+# needed, so running the whole installer under sudo is tolerated (just noisy).
 require_not_root() {
   [[ "$(id -un)" == "${RK_USER}" ]] || warn "running as $(id -un); target user is ${RK_USER}. Steps use sudo -u ${RK_USER} where needed."
 }

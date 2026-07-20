@@ -1,4 +1,5 @@
 'use client';
+/** macro-run.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { MacroRunChart } from '@/app/analysis/macros/[id]/recordings/[runId]/macro-run-chart';
 import { SequenceData, SequenceDataChartType } from '@/app/analysis/macros/[id]/recordings/[runId]/setup';
 import { InputShapers } from '@/app/analysis/macros/[id]/recordings/[runId]/input-shapers';

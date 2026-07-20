@@ -1,4 +1,5 @@
 'use client';
+/** dropdown-menu.tsx — Design-system UI primitive (shared, presentational). See docs/ARCHITECTURE.md §4. */
 
 import * as React from 'react';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';

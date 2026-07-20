@@ -1,3 +1,4 @@
+/** info-message.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { InformationCircleIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 import { Banner } from '@/components/common/banner';

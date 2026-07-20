@@ -1,3 +1,4 @@
+/** lib-tailwind.d.ts — Configurator source module. See docs/ARCHITECTURE.md §4. */
 declare module 'tailwindcss/lib/util/flattenColorPalette' {
 	export default function flattenColorPalette(
 		colors: Record<string, string | Record<string, string>>,

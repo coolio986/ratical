@@ -1,3 +1,4 @@
+/** dfu-image.ts — Legacy Next.js pages/ API route. See docs/ARCHITECTURE.md §4. */
 import { GenericErrorResponse } from '@/pages/api/types';
 import fs from 'fs';
 import { promisify } from 'util';

@@ -1,3 +1,8 @@
+/**
+ * zods/printer-configuration.tsx — the fully-assembled configuration a user builds in the
+ * wizard: chosen printer + size + board(s) + toolhead(s) + rails/drivers + speed profile.
+ * This `PrinterConfiguration` type is the `config` argument every printer template receives.
+ */
 import { Board, BoardID } from '@/zods/boards';
 import {
 	Fan,

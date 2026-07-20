@@ -1,4 +1,5 @@
 'use client';
+/** modal.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 /* This example requires Tailwind CSS v2.0+ */
 import React, { Fragment, ReactElement, useCallback, useState } from 'react';
 

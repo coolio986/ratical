@@ -1,3 +1,4 @@
+/** error-message.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { XCircleIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 import { twMerge } from 'tailwind-merge';

@@ -1,3 +1,4 @@
+/** logger.ts — Internal helper/hook for the App-Router pages. See docs/ARCHITECTURE.md §4. */
 import pino from 'pino';
 import { globalPinoOpts } from '@/helpers/logger';
 import { trpcClient } from '@/helpers/trpc';

@@ -1,4 +1,5 @@
 'use client';
+/** hardware-selection.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import React, { startTransition, useEffect, useState } from 'react';
 import { StepNavButtons } from '@/components/step-nav-buttons';
 import { StepScreenProps } from '@/hooks/useSteps';

@@ -1,3 +1,4 @@
+/** toolhead-settings.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useToolheadConfiguration } from '@/hooks/useToolheadConfiguration';
 import { stringToTitleObject } from '@/utils/serialization';

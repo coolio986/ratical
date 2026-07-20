@@ -1,4 +1,5 @@
 'use client';
+/** navigation.ts — Internal helper/hook for the App-Router pages. See docs/ARCHITECTURE.md §4. */
 import { usePathname, useRouter } from 'next/navigation';
 import React, { useCallback, useEffect } from 'react';
 import type { Route } from 'next';

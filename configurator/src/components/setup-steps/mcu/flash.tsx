@@ -1,3 +1,4 @@
+/** flash.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import { CheckCircleIcon, ArrowPathIcon } from '@heroicons/react/24/outline';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { trpc } from '@/helpers/trpc';

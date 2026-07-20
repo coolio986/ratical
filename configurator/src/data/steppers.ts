@@ -1,3 +1,8 @@
+/**
+ * data/steppers.ts — the registry of stepper motors (e.g. LDO-42STH48-2504AC) with their
+ * electrical specs, used to seed sensible current/rotation defaults. Add a motor here to make
+ * it selectable in the wizard.
+ */
 import { z } from 'zod';
 import { Drivers } from '@/data/drivers';
 import { Stepper, StepperVoltage } from '@/zods/motion';

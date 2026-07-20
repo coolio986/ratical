@@ -1,3 +1,4 @@
+/** iw.ts — Backend helper for the configurator server. See docs/ARCHITECTURE.md §4. */
 /*
  * Copyright (c) 2015 Christopher M. Baker
  *

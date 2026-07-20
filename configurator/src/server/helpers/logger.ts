@@ -1,3 +1,4 @@
+/** logger.ts — Backend helper for the configurator server. See docs/ARCHITECTURE.md §4. */
 import pino from 'pino';
 import { serverSchema } from '@/env/schema.mjs';
 import { globalPinoOpts } from '@/helpers/logger';

@@ -1,3 +1,4 @@
+/** config-parsing.ts — Backend helper for the configurator server. See docs/ARCHITECTURE.md §4. */
 export type SectionProperties = { [property: string]: string };
 export const findSection = (section: string, content: string) => {
 	const regex = new RegExp(`(?<header>\\[${section}\\])\\n(?<body>(?:^(?:\\S| )+$(\\n?))+)`, 'gm');

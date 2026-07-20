@@ -1,3 +1,9 @@
+/**
+ * zods/boards.tsx — the runtime contract for board definitions (control boards + toolboards).
+ * `board-definition.json` files are validated against these schemas (motorSlots, driverCount,
+ * firmwareOptions, dfu, SPI wiring…). Add a field here AND in board-definition.schema.json.
+ * See docs/modifying/boards.md.
+ */
 import { z } from 'zod';
 import { DriverID, PrinterAxis, Voltage } from '@/zods/motion';
 

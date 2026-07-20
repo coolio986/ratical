@@ -1,4 +1,13 @@
 // @ts-check
+/**
+ * env/schema.mjs — the runtime environment contract (validated with Zod at boot).
+ *
+ * Defines every env var the app requires: RATICAL_CONFIGURATION_PATH (where board/printer
+ * definitions are read), KLIPPER_CONFIG_PATH (where generated config is written), KLIPPER_DIR,
+ * KLIPPER_ENV, MOONRAKER_DIR, RATICAL_DATA_DIR, RATICAL_SCRIPT_DIR. Defaults live in `.env`
+ * and all hardcode /home/pi. Changing the user means editing .env here AND config.env
+ * (RK_USER). See docs/modifying/configurator.md §2.
+ */
 import { z } from 'zod';
 
 /**

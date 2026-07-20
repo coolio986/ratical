@@ -1,3 +1,8 @@
+/**
+ * file-operations.ts — filesystem helpers shared across the backend: safe read/write,
+ * streaming copies, and atomic replaces. Centralized so config writes and firmware/zip
+ * handling behave consistently (and to keep cross-device rename pitfalls in one place).
+ */
 import { existsSync, createReadStream, createWriteStream, write, readFileSync } from 'fs';
 import { copyFile, readFile, unlink } from 'fs/promises';
 import { EOL } from 'os';

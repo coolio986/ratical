@@ -1,3 +1,4 @@
+/** tokenizer.ts — Next.js App-Router module for the configurator UI. See docs/ARCHITECTURE.md §4. */
 import { tokenize, markEdits, markWord, TokenizeOptions } from 'react-diff-view';
 import refractor from 'refractor/core';
 import python from 'refractor/lang/python';

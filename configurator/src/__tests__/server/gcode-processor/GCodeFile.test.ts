@@ -1,3 +1,4 @@
+/** GCodeFile.test.ts — Test suite (vitest). See docs/modifying/configurator.md §3. */
 /* eslint-disable no-console */
 /**
  * @file GCodeFile.test.ts

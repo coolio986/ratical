@@ -1,4 +1,5 @@
 'use client';
+/** macro-form.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { ArrowDownToDot, Check, CircleFadingPlus, Cpu, Cross, Server, Target, X } from 'lucide-react';
 
 import { Button } from '@/components/common/button';

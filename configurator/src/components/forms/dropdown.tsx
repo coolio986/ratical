@@ -1,3 +1,4 @@
+/** dropdown.tsx — A form component used by the configurator. See docs/ARCHITECTURE.md §4. */
 import React, { Fragment, useCallback, useEffect, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';

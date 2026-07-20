@@ -1,3 +1,7 @@
+/**
+ * zods/util.tsx — shared Zod helpers/refinements reused across the other schema modules
+ * (branded ids, common primitives, reusable validators).
+ */
 import { z } from 'zod';
 
 export const PinoLogLevel = z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal']);

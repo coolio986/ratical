@@ -1,3 +1,4 @@
+/** cache.ts — Backend helper for the configurator server. See docs/ARCHITECTURE.md §4. */
 import NodeCache from 'node-cache';
 import { BoardWithDetectionStatus } from '@/zods/boards';
 import { MetaDirectories } from '@/server/helpers/metadata';

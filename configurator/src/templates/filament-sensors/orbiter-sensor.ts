@@ -1,3 +1,5 @@
+/** filament-sensors/orbiter-sensor.ts — config-fragment generator for the Orbiter filament
+ *  sensor on a toolhead. Selected via the accessories data + wizard. */
 import { GetRequiredPinAliasesFn, RenderToolheadTemplateFn } from '@/templates/template-api';
 import { z } from 'zod';
 

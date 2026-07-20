@@ -1,3 +1,4 @@
+/** vaoc-settings-dialog.tsx — Part of the /configure/calibration VAOC (camera nozzle-offset) UI. See docs/ARCHITECTURE.md §4. */
 import React, { useEffect, useRef, useState } from 'react';
 import { TextInput } from '@/components/forms/text-input';
 import { Toggle } from '@/components/forms/toggle';

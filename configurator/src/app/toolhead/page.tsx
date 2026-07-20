@@ -1,4 +1,5 @@
 'use client';
+/** page.tsx — Part of the toolhead configuration UI. See docs/ARCHITECTURE.md §4. */
 import { Spinner } from '@/components/common/spinner';
 import { useIsClient } from '@/hooks/isClient';
 import { Toolheads } from '@/app/toolhead/toolheads';

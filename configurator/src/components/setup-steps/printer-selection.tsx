@@ -1,4 +1,5 @@
 'use client';
+/** printer-selection.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import React, { useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
 import { StepNavButtons } from '@/components/step-nav-buttons';

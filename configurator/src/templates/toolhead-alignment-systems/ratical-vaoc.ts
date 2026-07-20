@@ -1,3 +1,6 @@
+/** toolhead-alignment-systems/ratical-vaoc.ts — config-fragment generator for the VAOC
+ *  camera-based toolhead-alignment system (wires the camera LED / alignment config). See the
+ *  VAOC glossary entry and /configure/calibration. */
 import { serverSchema } from '@/env/schema.mjs';
 import { replaceOrAddIniSectionsFromFileSync } from '@/server/helpers/file-operations';
 import { getLogger } from '@/server/helpers/logger';

@@ -1,3 +1,7 @@
+/**
+ * data/fans.tsx — the registry of fan types/wiring options (2-pin, 4-pin, toolboard) the
+ * wizard offers for part-cooling and hotend fans; drives the emitted [fan]/[heater_fan] pins.
+ */
 import { z } from 'zod';
 import { Fan } from '@/zods/hardware';
 import { PrinterAxis } from '@/zods/motion';

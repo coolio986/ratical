@@ -1,3 +1,4 @@
+/** unfold.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import { CaretDownIcon, CaretUpIcon } from '@radix-ui/react-icons';
 import { ArrowDownFromLine, ArrowUpFromLine, PlusCircle, UnfoldVertical } from 'lucide-react';
 import { createElement, useCallback } from 'react';

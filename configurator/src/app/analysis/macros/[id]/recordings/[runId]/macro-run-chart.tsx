@@ -1,4 +1,5 @@
 'use client';
+/** macro-run-chart.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 
 import { shadableTWColors } from '@/app/_helpers/colors';
 import { UPlotPSDSeries, UPlotStaticPSDChart } from '@/app/analysis/oss-uplot-charts';

@@ -1,3 +1,4 @@
+/** logger.ts — Part of the `ratical` CLI. See docs/ARCHITECTURE.md §4. */
 import { pino } from 'pino';
 import { globalPinoOpts } from '@/helpers/logger.js';
 import { loadEnvironment } from '@/server/helpers/utils';

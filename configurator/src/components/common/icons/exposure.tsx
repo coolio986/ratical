@@ -1,3 +1,4 @@
+/** exposure.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 
 export const ExposureIcon = (props: { className?: string }) => (

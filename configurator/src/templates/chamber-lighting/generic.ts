@@ -1,3 +1,5 @@
+/** chamber-lighting/generic.ts — config-fragment generator for generic chamber lighting
+ *  (renders its LED/output-pin config). Selected via the accessories data + wizard. */
 import { GetRequiredPinAliasesFn, RenderTemplateFn } from '@/templates/template-api';
 
 // TODO: Use templateOptions to allow different pin configurations, brightness control, RGB etc.

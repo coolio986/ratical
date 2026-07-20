@@ -1,3 +1,4 @@
+/** animated-container.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { useDebounce } from '@/app/_hooks/debounce';
 import useResizeObserver from '@react-hook/resize-observer';
 import { motion, SpringOptions } from 'framer-motion';

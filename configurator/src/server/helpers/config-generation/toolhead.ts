@@ -1,3 +1,14 @@
+/**
+ * config-generation/toolhead.ts — per-toolhead config generation.
+ *
+ * Turns one toolhead's wizard selection (extruder, hotend, toolboard, part/hotend fans,
+ * probe, X/Y endstops) into its Klipper config fragment. On IDEX/hybrid printers there are
+ * multiple toolheads (one per carriage/axis); this is called once per toolhead and the
+ * results are composed by the printer template via `KlipperConfigHelper`.
+ *
+ * Referenced hardware ids resolve against the `configuration/{extruders,hotends,toolboard,
+ * z-probe}` libraries and the board definitions. See docs/modifying/printers.md.
+ */
 import { ToolheadConfiguration } from '@/zods/toolhead';
 import {
 	parseBoardPinConfig,

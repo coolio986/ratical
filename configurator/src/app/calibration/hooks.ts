@@ -1,4 +1,5 @@
 'use client';
+/** hooks.ts — Part of the /configure/calibration VAOC (camera nozzle-offset) UI. See docs/ARCHITECTURE.md §4. */
 import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import useLocalStorage from 'react-use-localstorage';
 import {

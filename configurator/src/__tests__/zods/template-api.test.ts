@@ -1,3 +1,4 @@
+/** template-api.test.ts — Test suite (vitest). See docs/modifying/configurator.md §3. */
 import { describe, expect, it, beforeAll } from 'vitest';
 import { z } from 'zod';
 import {

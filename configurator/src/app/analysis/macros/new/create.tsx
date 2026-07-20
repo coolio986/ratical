@@ -1,4 +1,5 @@
 'use client';
+/** create.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createMacroSchema } from '@/zods/analysis';
 import { z } from 'zod';

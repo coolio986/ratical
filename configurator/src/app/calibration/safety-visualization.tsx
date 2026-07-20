@@ -1,3 +1,4 @@
+/** safety-visualization.tsx — Part of the /configure/calibration VAOC (camera nozzle-offset) UI. See docs/ARCHITECTURE.md §4. */
 import { twJoin } from 'tailwind-merge';
 import { useGestures } from '@/app/calibration/hooks';
 

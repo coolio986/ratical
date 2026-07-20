@@ -1,4 +1,5 @@
 'use client';
+/** card-selector.tsx — React component for the configurator UI. See docs/ARCHITECTURE.md §4. */
 import React, { useCallback, useEffect, useState } from 'react';
 import { RadioGroup } from '@headlessui/react';
 import { twJoin } from 'tailwind-merge';

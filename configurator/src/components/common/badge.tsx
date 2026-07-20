@@ -1,3 +1,4 @@
+/** badge.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { VariantProps, cva } from 'class-variance-authority';
 import { twMerge } from 'tailwind-merge';
 import { z } from 'zod';

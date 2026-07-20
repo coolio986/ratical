@@ -1,4 +1,5 @@
 'use client';
+/** useSteps.tsx — Custom React hook (client-side data/state). See docs/ARCHITECTURE.md §4. */
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 

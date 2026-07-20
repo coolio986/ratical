@@ -1,4 +1,5 @@
 'use client';
+/** sync-with-moonraker.tsx — React component for the configurator UI. See docs/ARCHITECTURE.md §4. */
 
 import React, { useCallback, useEffect } from 'react';
 import { useMoonraker } from '@/moonraker/hooks';

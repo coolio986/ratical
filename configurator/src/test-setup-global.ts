@@ -1,3 +1,4 @@
+/** test-setup-global.ts — Configurator source module. See docs/ARCHITECTURE.md §4. */
 import { loadEnvironment, resetEnvironment } from '@/server/helpers/utils';
 
 export const setup = () => {

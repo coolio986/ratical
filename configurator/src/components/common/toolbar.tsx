@@ -1,3 +1,4 @@
+/** toolbar.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import React, { useCallback } from 'react';
 import { twJoin, twMerge } from 'tailwind-merge';

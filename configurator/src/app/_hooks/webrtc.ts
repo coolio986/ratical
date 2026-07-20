@@ -1,3 +1,4 @@
+/** webrtc.ts — Internal helper/hook for the App-Router pages. See docs/ARCHITECTURE.md §4. */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { getLogger } from '@/app/_helpers/logger';
 

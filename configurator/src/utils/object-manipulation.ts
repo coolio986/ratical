@@ -1,3 +1,4 @@
+/** object-manipulation.ts — Shared utility used across the app. See docs/ARCHITECTURE.md §4. */
 export type NullableRequiredToPartial<T> = Partial<{ [key in keyof T]: NonNullable<T[key]> }>;
 
 export const removeNulledProperties = <T extends object>(opts: T): NullableRequiredToPartial<T> => {

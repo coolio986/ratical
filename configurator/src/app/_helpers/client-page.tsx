@@ -1,3 +1,4 @@
+/** client-page.tsx — Internal helper/hook for the App-Router pages. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 import { NoSSR } from '@/components/common/no-ssr';
 import { FullLoadScreen } from '@/components/common/full-load-screen';

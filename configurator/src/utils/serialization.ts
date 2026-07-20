@@ -1,3 +1,4 @@
+/** serialization.ts — Shared utility used across the app. See docs/ARCHITECTURE.md §4. */
 import type { z } from 'zod';
 import { Drivers } from '@/data/drivers';
 import {

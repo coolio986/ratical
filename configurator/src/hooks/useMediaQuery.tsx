@@ -1,4 +1,5 @@
 'use client';
+/** useMediaQuery.tsx — Custom React hook (client-side data/state). See docs/ARCHITECTURE.md §4. */
 import { useEffect, useState } from 'react';
 
 export function useMediaQuery(query: string): boolean {

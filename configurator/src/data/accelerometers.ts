@@ -1,3 +1,8 @@
+/**
+ * data/accelerometers.ts — the accelerometer options (ADXL345, LIS2DW, on board vs toolboard)
+ * offered for resonance/input-shaper measurement. Client-safe list; detection is in
+ * accelerometers.server.ts.
+ */
 import { z } from 'zod';
 import { Accelerometer } from '@/zods/hardware';
 import { PartialPrinterConfiguration } from '@/zods/printer-configuration';

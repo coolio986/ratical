@@ -1,3 +1,4 @@
+/** index.ts — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { KlipperAccelSensorName, KlipperAccelSensorSchema } from '@/zods/hardware';
 import { DoWork, fromWorker, runWorker } from 'observable-webworker';
 import { EMPTY, Observable, Subject, asyncScheduler, firstValueFrom, from, of, scheduled } from 'rxjs';

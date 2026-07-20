@@ -1,4 +1,5 @@
 'use client';
+/** worker-hooks.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
 	AccelerometerType,

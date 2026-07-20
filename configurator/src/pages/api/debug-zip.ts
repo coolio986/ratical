@@ -1,3 +1,4 @@
+/** debug-zip.ts — Legacy Next.js pages/ API route. See docs/ARCHITECTURE.md §4. */
 import path from 'path';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { serverSchema } from '@/env/schema.mjs';

@@ -1,4 +1,5 @@
 'use client';
+/** help-actions.tsx — Shared/common UI component. See docs/ARCHITECTURE.md §4. */
 import { useCallback, useState } from 'react';
 import { trpc } from '@/helpers/trpc';
 import { MenubarItem } from '@/components/ui/menubar';

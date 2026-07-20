@@ -1,4 +1,5 @@
 'use client';
+/** sonner.tsx — Design-system UI primitive (shared, presentational). See docs/ARCHITECTURE.md §4. */
 
 import { Toaster as Sonner } from 'sonner';
 

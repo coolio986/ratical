@@ -1,3 +1,8 @@
+/**
+ * zods/template-api.ts — the typed surface a printer template (`templates/printers/*.ts`)
+ * programs against: the shape of `config` + the `KlipperConfigHelper` API. Change this when
+ * you add a new render helper templates should be able to call.
+ */
 import { z } from 'zod';
 import { serverSchema } from '@/env/schema.mjs';
 import { badgeColorOptions } from '@/components/common/badge';

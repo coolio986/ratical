@@ -1,3 +1,4 @@
+/** cjs-shim.ts — Part of the `ratical` CLI. See docs/ARCHITECTURE.md §4. */
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import url from 'node:url';

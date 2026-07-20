@@ -1,3 +1,4 @@
+/** layout.tsx — Part of the /configure/calibration VAOC (camera nozzle-offset) UI. See docs/ARCHITECTURE.md §4. */
 import { headers } from 'next/headers';
 
 export default function WizardLayout({ children }: { children: React.ReactNode }) {

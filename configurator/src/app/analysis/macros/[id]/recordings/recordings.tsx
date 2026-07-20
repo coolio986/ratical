@@ -1,4 +1,5 @@
 'use client';
+/** recordings.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 import { Metadata } from 'next';
 
 import { columns } from '@/app/analysis/macros/[id]/recordings/columns';

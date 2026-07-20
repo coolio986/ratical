@@ -1,4 +1,5 @@
 'use client';
+/** wizard.tsx — Part of the setup-wizard UI (the flow that generates Ratical.cfg). See docs/ARCHITECTURE.md §4. */
 
 import { KlippyStateBadge } from '@/components/klippy-state-badge';
 import { MoonrakerStateBadge } from '@/components/moonraker-state-badge';

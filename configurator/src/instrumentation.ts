@@ -1,3 +1,4 @@
+/** instrumentation.ts — Configurator source module. See docs/ARCHITECTURE.md §4. */
 import type { PermittedServices } from '@/server/helpers/klipper';
 
 export const register = async () => {

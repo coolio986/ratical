@@ -1,3 +1,4 @@
+/** cli.test.tsx — Test suite (vitest). See docs/modifying/configurator.md §3. */
 import { afterEach, beforeEach, describe, expect, test, vi, Mock } from 'vitest';
 import { createTRPCProxyClient } from '@trpc/client';
 import { readPackageUp } from 'read-package-up';

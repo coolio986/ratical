@@ -1,3 +1,4 @@
+/** migrations.ts — Moonraker API client (websocket/DB access). See docs/ARCHITECTURE.md §4. */
 /* eslint-disable no-console */
 import { getHost } from '@/helpers/util';
 import { MoonrakerDBItemResponse } from '@/moonraker/types';

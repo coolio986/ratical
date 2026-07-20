@@ -1,3 +1,4 @@
+/** dfu-flash.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 /* eslint-disable @next/next/no-img-element */
 import React, { useCallback, useState } from 'react';
 import { ToolheadHelper } from '@/helpers/toolhead';

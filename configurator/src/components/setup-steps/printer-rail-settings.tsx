@@ -1,3 +1,4 @@
+/** printer-rail-settings.tsx — A step in the setup wizard. See docs/ARCHITECTURE.md §4. */
 import { Dropdown } from '@/components/forms/dropdown';
 import { Board } from '@/zods/boards';
 import React, { startTransition, useCallback, useEffect, useMemo, useState } from 'react';

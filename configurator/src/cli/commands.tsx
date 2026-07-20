@@ -1,3 +1,4 @@
+/** commands.tsx — Part of the `ratical` CLI. See docs/ARCHITECTURE.md §4. */
 import * as commander from 'commander';
 import type { AppRouter } from '@/server/routers/index.js';
 import { createTRPCProxyClient, httpBatchLink } from '@trpc/client';

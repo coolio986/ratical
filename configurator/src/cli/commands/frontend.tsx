@@ -1,3 +1,8 @@
+/**
+ * cli/commands/frontend.tsx — the command that serves the prebuilt Next.js app
+ * (`next start` against the committed build/) behind the `ratical` CLI. This is what the
+ * ratical-configurator systemd service runs.
+ */
 import { createSignal } from '@/app/_helpers/signal';
 import { serverSchema } from '@/env/schema.mjs';
 import { findSection } from '@/server/helpers/config-parsing';

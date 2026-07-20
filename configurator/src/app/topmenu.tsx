@@ -1,4 +1,5 @@
 'use client';
+/** topmenu.tsx — Next.js App-Router module for the configurator UI. See docs/ARCHITECTURE.md §4. */
 import { XMarkIcon, Bars3Icon, BookOpenIcon } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
 import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';

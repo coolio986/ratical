@@ -1,4 +1,5 @@
 'use client';
+/** realtime-analysis-chart.tsx — Part of the /configure/analysis (input-shaper / resonance) UI, charted with uPlot. See docs/ARCHITECTURE.md §4. */
 
 import React, { useCallback, useMemo, useRef, useState } from 'react';
 

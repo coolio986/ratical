@@ -1,3 +1,4 @@
+/** loading.tsx — Next.js App-Router module for the configurator UI. See docs/ARCHITECTURE.md §4. */
 import { Card } from '@/components/common/card';
 import { FullLoadScreen } from '@/components/common/full-load-screen';
 import { Skeleton } from '@/components/ui/skeleton';

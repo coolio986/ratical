@@ -1,3 +1,4 @@
+/** lib-react.d.ts — Configurator source module. See docs/ARCHITECTURE.md §4. */
 import React from 'react';
 // Fix react types
 declare module 'react' {

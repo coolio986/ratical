@@ -1,3 +1,4 @@
+/** helpers.ts — Part of the /configure/calibration VAOC (camera nozzle-offset) UI. See docs/ARCHITECTURE.md §4. */
 export type CameraOption = {
 	key: string;
 	value?: number | boolean;

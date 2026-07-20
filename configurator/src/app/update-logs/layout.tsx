@@ -1,3 +1,4 @@
+/** layout.tsx — Next.js App-Router layout. See docs/ARCHITECTURE.md §4. */
 import { headers } from 'next/headers';
 
 export default function UpdateLogsLayout({ children }: { children: React.ReactNode }) {

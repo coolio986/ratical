@@ -1,3 +1,19 @@
+/**
+ * klipper-config.ts — the config generator's engine.
+ *
+ * Exports `KlipperConfigHelper`: the `helper` object every printer template
+ * (`templates/printers/*.ts`) uses to render sections of the generated `Ratical.cfg`
+ * (`renderBoards`, `renderBase`, `renderExtruder`, `renderHotend`, `renderInputShaper`,
+ * `renderMotorSections`, `renderServoEnableDelay`, `renderSpeedLimits`, `getMacroTravelSpeed`…).
+ *
+ * It stitches together the user's wizard choices (board, toolboards, drivers, printer,
+ * hardware) into valid Klipper/Kalico config text, emitting the right `[include Ratical/...]`
+ * lines, board_pins, TMC/servo driver blocks, and quirks includes.
+ *
+ * To change HOW config is generated, edit the relevant `render*` method here; to change WHAT
+ * a specific printer emits, edit that printer's template. See docs/modifying/configurator.md
+ * and docs/modifying/printers.md.
+ */
 import { PrinterConfiguration } from '@/zods/printer-configuration';
 import { sensorlessXTemplate, sensorlessYTemplate } from '@/templates/extras/sensorless-homing';
 import { Limits, PrinterAxis, PrinterRail, matchesDefaultRail } from '@/zods/motion';

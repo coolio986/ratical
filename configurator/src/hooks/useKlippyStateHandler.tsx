@@ -1,4 +1,5 @@
 'use client';
+/** useKlippyStateHandler.tsx — Custom React hook (client-side data/state). See docs/ARCHITECTURE.md §4. */
 
 import { useCallback, useEffect, useState } from 'react';
 import { atom, useSetRecoilState } from 'recoil';

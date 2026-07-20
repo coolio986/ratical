@@ -1,3 +1,7 @@
+/**
+ * zods/analysis.tsx — schemas for the input-shaper / resonance analysis feature: run
+ * parameters and result series consumed by the /configure/analysis uPlot charts.
+ */
 import { z } from 'zod';
 import { KlipperAccelSensorNameSchame } from '@/zods/hardware';
 

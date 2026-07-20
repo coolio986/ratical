@@ -1,3 +1,4 @@
+/** pull-images-from-diagrams.ts — Shared utility used across the app. See docs/ARCHITECTURE.md §4. */
 import { getBoards } from '@/server/routers/mcu';
 import { createWriteStream, existsSync, unlinkSync } from 'fs';
 import { Readable } from 'stream';

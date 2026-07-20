@@ -1,3 +1,4 @@
+/** status.tsx — Part of the `ratical` CLI. See docs/ARCHITECTURE.md §4. */
 import { Box, Text } from 'ink';
 import React from 'react';
 
